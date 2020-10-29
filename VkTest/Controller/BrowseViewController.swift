@@ -11,6 +11,8 @@ import SwiftyJSON
 
 class BrowseViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView?
+    @IBOutlet weak var createPostView: CreatePostView?
+
     let refreshControl = UIRefreshControl()
     let userCredentialsHelper = UserCredentialsHelper()
 
@@ -43,6 +45,7 @@ class BrowseViewController: UIViewController {
         tableView?.dataSource = self
         tableView?.delegate = self
         refreshControl.addTarget(self, action: #selector(didPullToRefresh), for: .valueChanged)
+        createPostView?.delegate = self
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -78,7 +81,8 @@ extension BrowseViewController {
         components.queryItems = [
             URLQueryItem(name: "v", value: "5.52"),
             URLQueryItem(name: "access_token", value: authPayload.accessToken),
-            URLQueryItem(name: "owner_id", value: String(userID)),
+//            URLQueryItem(name: "owner_id", value: String(userID)),
+            URLQueryItem(name: "owner_id", value: "1"),
             URLQueryItem(name: "count", value: "20"),
             URLQueryItem(name: "offset", value: resetExisting ? "0" : "\(posts.count)")
         ]
@@ -150,6 +154,13 @@ extension BrowseViewController: UITableViewDataSource, UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
+    }
+}
+
+//MARK: - Create Post View Delegate
+extension BrowseViewController: CreatePostViewDelegate {
+    func createPostView(_ createPostView: CreatePostView, didTapSendButtonWith text: String) {
+        print(text)
     }
 }
 

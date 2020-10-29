@@ -116,22 +116,33 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="iCu-co-X0L">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="iCu-co-X0L">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="701"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zSP-DC-J4A" customClass="CreatePostView" customModule="VkTest" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="701" width="414" height="112"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="112" id="o9O-Jy-fU9"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="u7C-lJ-aRw"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="iCu-co-X0L" firstAttribute="leading" secondItem="S2i-lK-JQl" secondAttribute="leading" id="Lp8-l4-Pqs"/>
+                            <constraint firstItem="zSP-DC-J4A" firstAttribute="leading" secondItem="u7C-lJ-aRw" secondAttribute="leading" id="OEk-HP-Ptq"/>
                             <constraint firstItem="iCu-co-X0L" firstAttribute="top" secondItem="S2i-lK-JQl" secondAttribute="top" id="QWe-aM-46b"/>
-                            <constraint firstAttribute="bottom" secondItem="iCu-co-X0L" secondAttribute="bottom" id="YKl-h2-nxi"/>
+                            <constraint firstItem="u7C-lJ-aRw" firstAttribute="bottom" secondItem="zSP-DC-J4A" secondAttribute="bottom" id="TnL-2h-zoD"/>
+                            <constraint firstItem="zSP-DC-J4A" firstAttribute="trailing" secondItem="u7C-lJ-aRw" secondAttribute="trailing" id="VIK-NY-fTT"/>
+                            <constraint firstItem="zSP-DC-J4A" firstAttribute="top" secondItem="iCu-co-X0L" secondAttribute="bottom" id="YKl-h2-nxi"/>
                             <constraint firstAttribute="trailing" secondItem="iCu-co-X0L" secondAttribute="trailing" id="kRB-Nw-sve"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Browse" image="newspaper.fill" catalog="system" id="Aap-gP-wrq"/>
                     <connections>
+                        <outlet property="createPostView" destination="zSP-DC-J4A" id="pod-Gv-KN9"/>
                         <outlet property="tableView" destination="iCu-co-X0L" id="Bws-hm-Rsi"/>
                     </connections>
                 </viewController>
