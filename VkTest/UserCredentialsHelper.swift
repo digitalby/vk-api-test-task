@@ -9,6 +9,8 @@ import Foundation
 import SwiftKeychainWrapper
 
 class UserCredentialsHelper {
+    private static let oAuthPayloadKey = "oAuthPayload"
+
     var keychainWrapper: KeychainWrapper
 
     init(keychainWrapper: KeychainWrapper) {
@@ -20,7 +22,7 @@ class UserCredentialsHelper {
     }
 
     func loadOAuthPayload() throws -> VKAuthPayload? {
-        guard let payloadData = keychainWrapper.data(forKey: "oAuthPayload") else {
+        guard let payloadData = keychainWrapper.data(forKey: Self.oAuthPayloadKey) else {
             return nil
         }
         let decoder = JSONDecoder()
@@ -31,6 +33,10 @@ class UserCredentialsHelper {
     func saveOAuthPayload(_ payload: VKAuthPayload) throws {
         let encoder = JSONEncoder()
         let data = try encoder.encode(payload)
-        keychainWrapper.set(data, forKey: "oAuthPayload")
+        keychainWrapper.set(data, forKey: Self.oAuthPayloadKey)
+    }
+
+    func deleteOAuthPayload() {
+        keychainWrapper.removeObject(forKey: Self.oAuthPayloadKey)
     }
 }

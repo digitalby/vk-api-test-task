@@ -10,12 +10,29 @@ import UIKit
 class OptionsViewController: UIViewController {
 
     @IBOutlet weak var avatarView: AvatarView?
-    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var nameLabel: UILabel?
+    let signOutBarButtonItem = UIBarButtonItem(title: "Sign Out", style: .plain, target: nil, action: nil)
 
-    let signOutBarButtonItem = UIBarButtonItem(title: "Sign Out", style: .plain, target: self, action: #selector(didTapSignOut))
+    let userCredentialsHelper = UserCredentialsHelper()
+
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        setupObserver()
+    }
+
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        setupObserver()
+    }
+
+    deinit {
+        tearDownObserver()
+    }
 
     override func awakeFromNib() {
         super.awakeFromNib()
+        signOutBarButtonItem.target = self
+        signOutBarButtonItem.action = #selector(didTapSignOut)
     }
 
     override func viewDidLoad() {
@@ -25,20 +42,34 @@ class OptionsViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         tabBarController?.navigationItem.rightBarButtonItems = [signOutBarButtonItem]
+        refresh()
     }
 
     @objc func didTapSignOut(_ sender: Any?) {
-        print("Sign Out")
+        userCredentialsHelper.deleteOAuthPayload()
+        NotificationCenter.default.post(Notification(name: .credentialsDidChangeNotification, object: nil, userInfo: nil))
+    }
+}
+
+//MARK: - Retrieve data
+extension OptionsViewController {
+    func refresh() {
+
+    }
+}
+
+//MARK: - Observer
+extension OptionsViewController {
+    @objc func onCredentialsChanged(_ notification: Notification?) {
+        if let payload = notification?.object as? VKAuthPayload {
+        }
     }
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    private func setupObserver() {
+        NotificationCenter.default.addObserver(self, selector: #selector(onCredentialsChanged), name: .credentialsDidChangeNotification, object: nil)
     }
-    */
 
+    private func tearDownObserver() {
+        NotificationCenter.default.removeObserver(self)
+    }
 }

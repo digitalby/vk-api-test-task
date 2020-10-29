@@ -134,7 +134,7 @@
                     </navigationBar>
                     <connections>
                         <segue destination="Bl4-Oc-vxp" kind="relationship" relationship="rootViewController" id="Gft-f3-gvq"/>
-                        <segue destination="J6h-8k-FHn" kind="presentation" identifier="PresentLogin" animates="NO" modalPresentationStyle="fullScreen" id="593-wB-27I"/>
+                        <segue destination="J6h-8k-FHn" kind="presentation" identifier="PresentLogin" modalPresentationStyle="fullScreen" id="593-wB-27I"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xSq-0u-inE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

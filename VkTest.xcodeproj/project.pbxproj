@@ -11,6 +11,7 @@
 		ED4CCBF1254B1FA800566BAB /* VKAuthPayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED4CCBF0254B1FA800566BAB /* VKAuthPayload.swift */; };
 		ED4CCC03254B221D00566BAB /* UserCredentialsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED4CCC02254B221D00566BAB /* UserCredentialsHelper.swift */; };
 		ED4CCC0D254B28B600566BAB /* AvatarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED4CCC0C254B28B600566BAB /* AvatarView.swift */; };
+		ED4CCC10254B3E5800566BAB /* NSNotificationName+AppNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED4CCC0F254B3E5800566BAB /* NSNotificationName+AppNotifications.swift */; };
 		ED98B517254AF4E200BB959E /* InnerNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED98B516254AF4E200BB959E /* InnerNavigationController.swift */; };
 		ED98B51A254AF5A600BB959E /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED98B519254AF5A600BB959E /* NavigationController.swift */; };
 		ED9D32FC254ACCA200936872 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED9D32FB254ACCA200936872 /* AppDelegate.swift */; };
@@ -33,6 +34,7 @@
 		ED4CCBF0254B1FA800566BAB /* VKAuthPayload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VKAuthPayload.swift; sourceTree = "<group>"; };
 		ED4CCC02254B221D00566BAB /* UserCredentialsHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCredentialsHelper.swift; sourceTree = "<group>"; };
 		ED4CCC0C254B28B600566BAB /* AvatarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarView.swift; sourceTree = "<group>"; };
+		ED4CCC0F254B3E5800566BAB /* NSNotificationName+AppNotifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSNotificationName+AppNotifications.swift"; sourceTree = "<group>"; };
 		ED98B516254AF4E200BB959E /* InnerNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InnerNavigationController.swift; sourceTree = "<group>"; };
 		ED98B519254AF5A600BB959E /* NavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
 		ED9D32F8254ACCA200936872 /* VkTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VkTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -148,6 +150,7 @@
 				ED4CCC01254B216D00566BAB /* View */,
 				ED9D3357254AEB7800936872 /* VKAuthHelper.swift */,
 				ED4CCC02254B221D00566BAB /* UserCredentialsHelper.swift */,
+				ED4CCC0F254B3E5800566BAB /* NSNotificationName+AppNotifications.swift */,
 			);
 			path = VkTest;
 			sourceTree = "<group>";
@@ -269,6 +272,7 @@
 				ED9D3358254AEB7800936872 /* VKAuthHelper.swift in Sources */,
 				ED4CCC0D254B28B600566BAB /* AvatarView.swift in Sources */,
 				ED9D3348254AD68900936872 /* BrowseViewController.swift in Sources */,
+				ED4CCC10254B3E5800566BAB /* NSNotificationName+AppNotifications.swift in Sources */,
 				ED98B517254AF4E200BB959E /* InnerNavigationController.swift in Sources */,
 				ED4CCC03254B221D00566BAB /* UserCredentialsHelper.swift in Sources */,
 				ED9D334B254AD6C900936872 /* OptionsViewController.swift in Sources */,
