@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		E6C57F4C61883DC0EDE5D77A /* Pods_VkTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20CE1520FD1C485883AF3B52 /* Pods_VkTest.framework */; };
+		ED98B517254AF4E200BB959E /* InnerNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED98B516254AF4E200BB959E /* InnerNavigationController.swift */; };
+		ED98B51A254AF5A600BB959E /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED98B519254AF5A600BB959E /* NavigationController.swift */; };
 		ED9D32FC254ACCA200936872 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED9D32FB254ACCA200936872 /* AppDelegate.swift */; };
 		ED9D32FE254ACCA200936872 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED9D32FD254ACCA200936872 /* SceneDelegate.swift */; };
 		ED9D3303254ACCA200936872 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ED9D3301254ACCA200936872 /* Main.storyboard */; };
@@ -17,12 +19,16 @@
 		ED9D334B254AD6C900936872 /* OptionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED9D334A254AD6C900936872 /* OptionsViewController.swift */; };
 		ED9D334E254AD6FB00936872 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED9D334D254AD6FB00936872 /* LoginViewController.swift */; };
 		ED9D3351254AD9B700936872 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED9D3350254AD9B700936872 /* TabBarController.swift */; };
+		ED9D3358254AEB7800936872 /* VKAuthHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED9D3357254AEB7800936872 /* VKAuthHelper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		20CE1520FD1C485883AF3B52 /* Pods_VkTest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VkTest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3165A4CDF63AE81F465B5602 /* Pods-VkTest.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VkTest.release.xcconfig"; path = "Target Support Files/Pods-VkTest/Pods-VkTest.release.xcconfig"; sourceTree = "<group>"; };
 		D9D5EB61B05BEF848A62B4C2 /* Pods-VkTest.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VkTest.debug.xcconfig"; path = "Target Support Files/Pods-VkTest/Pods-VkTest.debug.xcconfig"; sourceTree = "<group>"; };
+		ED4CCBEA254AFFF100566BAB /* VkTest.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = VkTest.entitlements; sourceTree = "<group>"; };
+		ED98B516254AF4E200BB959E /* InnerNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InnerNavigationController.swift; sourceTree = "<group>"; };
+		ED98B519254AF5A600BB959E /* NavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
 		ED9D32F8254ACCA200936872 /* VkTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VkTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED9D32FB254ACCA200936872 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		ED9D32FD254ACCA200936872 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -34,6 +40,7 @@
 		ED9D334A254AD6C900936872 /* OptionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsViewController.swift; sourceTree = "<group>"; };
 		ED9D334D254AD6FB00936872 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		ED9D3350254AD9B700936872 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		ED9D3357254AEB7800936872 /* VKAuthHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VKAuthHelper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +93,7 @@
 		ED9D32FA254ACCA200936872 /* VkTest */ = {
 			isa = PBXGroup;
 			children = (
+				ED4CCBEA254AFFF100566BAB /* VkTest.entitlements */,
 				ED9D32FB254ACCA200936872 /* AppDelegate.swift */,
 				ED9D32FD254ACCA200936872 /* SceneDelegate.swift */,
 				ED9D3301254ACCA200936872 /* Main.storyboard */,
@@ -96,6 +104,9 @@
 				ED9D334A254AD6C900936872 /* OptionsViewController.swift */,
 				ED9D334D254AD6FB00936872 /* LoginViewController.swift */,
 				ED9D3350254AD9B700936872 /* TabBarController.swift */,
+				ED9D3357254AEB7800936872 /* VKAuthHelper.swift */,
+				ED98B516254AF4E200BB959E /* InnerNavigationController.swift */,
+				ED98B519254AF5A600BB959E /* NavigationController.swift */,
 			);
 			path = VkTest;
 			sourceTree = "<group>";
@@ -214,8 +225,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ED9D3358254AEB7800936872 /* VKAuthHelper.swift in Sources */,
 				ED9D3348254AD68900936872 /* BrowseViewController.swift in Sources */,
+				ED98B517254AF4E200BB959E /* InnerNavigationController.swift in Sources */,
 				ED9D334B254AD6C900936872 /* OptionsViewController.swift in Sources */,
+				ED98B51A254AF5A600BB959E /* NavigationController.swift in Sources */,
 				ED9D32FC254ACCA200936872 /* AppDelegate.swift in Sources */,
 				ED9D3351254AD9B700936872 /* TabBarController.swift in Sources */,
 				ED9D334E254AD6FB00936872 /* LoginViewController.swift in Sources */,
@@ -367,6 +381,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = VkTest/VkTest.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = KVZVUNQ279;
 				INFOPLIST_FILE = VkTest/Info.plist;
@@ -387,6 +402,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = VkTest/VkTest.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = KVZVUNQ279;
 				INFOPLIST_FILE = VkTest/Info.plist;

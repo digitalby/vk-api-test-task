@@ -31,10 +31,44 @@
                     <view key="view" contentMode="scaleToFill" id="whx-Ib-sii">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="M7g-5q-qya">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <wkWebViewConfiguration key="configuration">
+                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                    <wkPreferences key="preferences"/>
+                                </wkWebViewConfiguration>
+                            </wkWebView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="enz-T0-6vM"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="M7g-5q-qya" firstAttribute="top" secondItem="whx-Ib-sii" secondAttribute="top" id="NGt-aa-rNI"/>
+                            <constraint firstAttribute="trailing" secondItem="M7g-5q-qya" secondAttribute="trailing" id="VHF-xH-m8Q"/>
+                            <constraint firstAttribute="bottom" secondItem="M7g-5q-qya" secondAttribute="bottom" id="Vxa-SO-moD"/>
+                            <constraint firstItem="M7g-5q-qya" firstAttribute="leading" secondItem="whx-Ib-sii" secondAttribute="leading" id="h9e-PM-5zd"/>
+                        </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Sign In" id="Ste-2o-68C"/>
+                    <navigationItem key="navigationItem" title="Sign In" id="Ste-2o-68C">
+                        <rightBarButtonItems>
+                            <barButtonItem title="Refresh" image="arrow.clockwise" catalog="system" id="ubV-Wr-pOb">
+                                <connections>
+                                    <action selector="didTapRefreshButton:" destination="fRm-bV-3IF" id="iNl-Cs-jXN"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="Back" image="chevron.backward" catalog="system" id="qVj-O6-lG7">
+                                <connections>
+                                    <action selector="didTapBackButton:" destination="fRm-bV-3IF" id="Fyd-47-Hpr"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="backButton" destination="qVj-O6-lG7" id="J03-es-nii"/>
+                        <outlet property="refreshButton" destination="ubV-Wr-pOb" id="wOn-ws-GIW"/>
+                        <outlet property="webView" destination="M7g-5q-qya" id="M5e-VF-oU0"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="p5q-Lp-e8G" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -60,7 +94,7 @@
         <!--Navigation Controller-->
         <scene sceneID="iQO-29-IfD">
             <objects>
-                <navigationController id="bwk-eL-c9p" sceneMemberID="viewController">
+                <navigationController id="bwk-eL-c9p" customClass="NavigationController" customModule="VkTest" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="sNV-er-LRF">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -93,10 +127,10 @@
             </objects>
             <point key="canvasLocation" x="1933" y="852"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Inner Navigation Controller-->
         <scene sceneID="EFq-Wa-88O">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="J6h-8k-FHn" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="J6h-8k-FHn" customClass="InnerNavigationController" customModule="VkTest" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="hgU-6N-pb2">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -113,6 +147,8 @@
         </scene>
     </scenes>
     <resources>
+        <image name="arrow.clockwise" catalog="system" width="115" height="128"/>
+        <image name="chevron.backward" catalog="system" width="96" height="128"/>
         <image name="gearshape.fill" catalog="system" width="128" height="121"/>
         <image name="newspaper.fill" catalog="system" width="128" height="111"/>
         <systemColor name="systemBackgroundColor">
