@@ -9,12 +9,27 @@ import UIKit
 
 class OptionsViewController: UIViewController {
 
+    @IBOutlet weak var avatarView: AvatarView?
+    @IBOutlet weak var nameLabel: UILabel!
+
+    let signOutBarButtonItem = UIBarButtonItem(title: "Sign Out", style: .plain, target: self, action: #selector(didTapSignOut))
+
+    override func awakeFromNib() {
+        super.awakeFromNib()
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
     }
-    
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        tabBarController?.navigationItem.rightBarButtonItems = [signOutBarButtonItem]
+    }
+
+    @objc func didTapSignOut(_ sender: Any?) {
+        print("Sign Out")
+    }
 
     /*
     // MARK: - Navigation
