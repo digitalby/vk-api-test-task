@@ -12,8 +12,11 @@ import SwiftyJSON
 class BrowseViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView?
     @IBOutlet weak var createPostView: CreatePostView?
-
+    @IBOutlet weak var adjustableBottomConstraint: NSLayoutConstraint?
     let refreshControl = UIRefreshControl()
+
+    private(set) var keyboardConstraintAdjuster: KeyboardConstraintAdjuster!
+
     let userCredentialsHelper = UserCredentialsHelper()
 
     let session = Session()
@@ -45,7 +48,17 @@ class BrowseViewController: UIViewController {
         tableView?.dataSource = self
         tableView?.delegate = self
         refreshControl.addTarget(self, action: #selector(didPullToRefresh), for: .valueChanged)
-        createPostView?.delegate = self
+        guard let createPostView = createPostView else {
+            return
+        }
+        createPostView.delegate = self
+        if let constraint = adjustableBottomConstraint {
+            keyboardConstraintAdjuster = KeyboardConstraintAdjuster(
+                bottomConstraint: constraint,
+                viewToAdjust: createPostView,
+                offset: -(tabBarController?.tabBar.bounds.height ?? 0.0)
+            )
+        }
     }
 
     override func viewDidAppear(_ animated: Bool) {

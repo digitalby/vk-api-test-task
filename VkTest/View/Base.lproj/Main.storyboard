@@ -142,6 +142,7 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Browse" image="newspaper.fill" catalog="system" id="Aap-gP-wrq"/>
                     <connections>
+                        <outlet property="adjustableBottomConstraint" destination="TnL-2h-zoD" id="NgZ-Gi-2Ra"/>
                         <outlet property="createPostView" destination="zSP-DC-J4A" id="pod-Gv-KN9"/>
                         <outlet property="tableView" destination="iCu-co-X0L" id="Bws-hm-Rsi"/>
                     </connections>

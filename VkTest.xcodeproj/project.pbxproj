@@ -15,6 +15,7 @@
 		ED4CCC27254B663F00566BAB /* CreatePostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED4CCC26254B663E00566BAB /* CreatePostView.swift */; };
 		ED4CCC2A254B665500566BAB /* CreatePostView.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED4CCC29254B665500566BAB /* CreatePostView.xib */; };
 		ED4CCC2D254B697100566BAB /* CreatePostViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED4CCC2C254B697100566BAB /* CreatePostViewDelegate.swift */; };
+		ED4CCC30254B76A700566BAB /* KeyboardConstraintAdjuster.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED4CCC2F254B76A600566BAB /* KeyboardConstraintAdjuster.swift */; };
 		ED98B517254AF4E200BB959E /* InnerNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED98B516254AF4E200BB959E /* InnerNavigationController.swift */; };
 		ED98B51A254AF5A600BB959E /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED98B519254AF5A600BB959E /* NavigationController.swift */; };
 		ED9D32FC254ACCA200936872 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED9D32FB254ACCA200936872 /* AppDelegate.swift */; };
@@ -41,6 +42,7 @@
 		ED4CCC26254B663E00566BAB /* CreatePostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePostView.swift; sourceTree = "<group>"; };
 		ED4CCC29254B665500566BAB /* CreatePostView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CreatePostView.xib; sourceTree = "<group>"; };
 		ED4CCC2C254B697100566BAB /* CreatePostViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePostViewDelegate.swift; sourceTree = "<group>"; };
+		ED4CCC2F254B76A600566BAB /* KeyboardConstraintAdjuster.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardConstraintAdjuster.swift; sourceTree = "<group>"; };
 		ED98B516254AF4E200BB959E /* InnerNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InnerNavigationController.swift; sourceTree = "<group>"; };
 		ED98B519254AF5A600BB959E /* NavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
 		ED9D32F8254ACCA200936872 /* VkTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VkTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -160,6 +162,7 @@
 				ED4CCC02254B221D00566BAB /* UserCredentialsHelper.swift */,
 				ED4CCC0F254B3E5800566BAB /* NSNotificationName+AppNotifications.swift */,
 				ED4CCC2C254B697100566BAB /* CreatePostViewDelegate.swift */,
+				ED4CCC2F254B76A600566BAB /* KeyboardConstraintAdjuster.swift */,
 			);
 			path = VkTest;
 			sourceTree = "<group>";
@@ -285,6 +288,7 @@
 				ED9D3348254AD68900936872 /* BrowseViewController.swift in Sources */,
 				ED4CCC10254B3E5800566BAB /* NSNotificationName+AppNotifications.swift in Sources */,
 				ED98B517254AF4E200BB959E /* InnerNavigationController.swift in Sources */,
+				ED4CCC30254B76A700566BAB /* KeyboardConstraintAdjuster.swift in Sources */,
 				ED4CCC03254B221D00566BAB /* UserCredentialsHelper.swift in Sources */,
 				ED9D334B254AD6C900936872 /* OptionsViewController.swift in Sources */,
 				ED98B51A254AF5A600BB959E /* NavigationController.swift in Sources */,
