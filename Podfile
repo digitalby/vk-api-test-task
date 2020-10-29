@@ -8,4 +8,5 @@ target 'VkTest' do
   # Pods for VkTest
   pod 'Alamofire', '~> 5.2'
   pod 'SwiftKeychainWrapper'
+  pod 'SwiftyJSON', '~> 4.0'
 end
