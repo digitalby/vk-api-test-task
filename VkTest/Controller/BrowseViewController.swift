@@ -182,6 +182,9 @@ extension BrowseViewController {
     @objc func onCredentialsChanged(_ notification: Notification?) {
         if let payload = notification?.object as? VKAuthPayload {
             refreshPostsWithAuthPayload(payload)
+        } else {
+            posts = []
+            tableView?.reloadData()
         }
     }
 

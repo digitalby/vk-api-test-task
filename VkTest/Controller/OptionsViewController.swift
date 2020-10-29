@@ -107,12 +107,20 @@ extension OptionsViewController {
         }
     }
 
-    func setNameComponents(firstName: String, lastName: String) {
-        nameLabel?.text = "\(firstName) \(lastName)"
+    func setNameComponents(firstName: String?, lastName: String?) {
+        if let firstName = firstName, let lastName = lastName {
+            nameLabel?.text = "\(firstName) \(lastName)"
+        } else {
+            nameLabel?.text = "--"
+        }
     }
 
     func setAvatarImage(_ image: UIImage?) {
-        avatarView?.image = image
+        if let image = image {
+            avatarView?.image = image
+        } else {
+            avatarView?.image = UIImage(systemName: "person.circle.fill") ?? UIImage()
+        }
     }
 }
 
@@ -121,6 +129,9 @@ extension OptionsViewController {
     @objc func onCredentialsChanged(_ notification: Notification?) {
         if let payload = notification?.object as? VKAuthPayload {
             refreshWithAuth(payload)
+        } else {
+            setNameComponents(firstName: nil, lastName: nil)
+            setAvatarImage(nil)
         }
     }
 
