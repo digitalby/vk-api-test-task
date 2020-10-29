@@ -14,9 +14,7 @@ enum VKAuthHelperError: Error {
 }
 
 class VKAuthHelper {
-    typealias OAuthCode = String
-
-    func verifyVKSignIn(for components: URLComponents, then: (OAuthCode)->(), error: (Error)->()) {
+    func verifyVKSignIn(for components: URLComponents, then: (VKAuthPayload)->(), error: (Error)->()) {
         guard let fragment = components.fragment else {
             error(VKAuthHelperError.fragmentError)
             return
@@ -28,11 +26,19 @@ class VKAuthHelper {
             error(errorObject)
             return
         }
-        guard let oAuthCode = responseDictionary["access_token"] else {
+        guard let accessToken = responseDictionary["access_token"] else {
             error(VKAuthHelperError.oAuthCodeError)
             return
         }
-        then(oAuthCode)
+
+        let expiresIn = responseDictionary["expires_in"]
+        let userId = responseDictionary["user_id"]
+        let payload = VKAuthPayload(
+            accessToken: accessToken,
+            expiresIn: Int(expiresIn ?? ""),
+            userId: Int(userId ?? "")
+        )
+        then(payload)
     }
 
     private func convertFragmentToDictionary(_ fragment: String) -> [String : String] {

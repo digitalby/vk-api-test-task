@@ -77,12 +77,11 @@ extension LoginViewController: WKNavigationDelegate {
             return
         }
         if components.path.contains("blank.html") {
-            authHelper.verifyVKSignIn(for: components) { [self] oAuthCode in
-                print("OAuth code: \(oAuthCode)")
+            authHelper.verifyVKSignIn(for: components) { [self] payload in
+                print("OAuth payload: \(payload)")
             } error: { [self] error in
                 print("Error: \(error)")
             }
-
         }
         decisionHandler(.allow)
     }

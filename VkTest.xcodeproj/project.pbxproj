@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		E6C57F4C61883DC0EDE5D77A /* Pods_VkTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20CE1520FD1C485883AF3B52 /* Pods_VkTest.framework */; };
+		ED4CCBF1254B1FA800566BAB /* VKAuthPayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED4CCBF0254B1FA800566BAB /* VKAuthPayload.swift */; };
+		ED4CCC03254B221D00566BAB /* UserCredentialsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED4CCC02254B221D00566BAB /* UserCredentialsHelper.swift */; };
 		ED98B517254AF4E200BB959E /* InnerNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED98B516254AF4E200BB959E /* InnerNavigationController.swift */; };
 		ED98B51A254AF5A600BB959E /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED98B519254AF5A600BB959E /* NavigationController.swift */; };
 		ED9D32FC254ACCA200936872 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED9D32FB254ACCA200936872 /* AppDelegate.swift */; };
@@ -27,6 +29,8 @@
 		3165A4CDF63AE81F465B5602 /* Pods-VkTest.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VkTest.release.xcconfig"; path = "Target Support Files/Pods-VkTest/Pods-VkTest.release.xcconfig"; sourceTree = "<group>"; };
 		D9D5EB61B05BEF848A62B4C2 /* Pods-VkTest.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VkTest.debug.xcconfig"; path = "Target Support Files/Pods-VkTest/Pods-VkTest.debug.xcconfig"; sourceTree = "<group>"; };
 		ED4CCBEA254AFFF100566BAB /* VkTest.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = VkTest.entitlements; sourceTree = "<group>"; };
+		ED4CCBF0254B1FA800566BAB /* VKAuthPayload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VKAuthPayload.swift; sourceTree = "<group>"; };
+		ED4CCC02254B221D00566BAB /* UserCredentialsHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCredentialsHelper.swift; sourceTree = "<group>"; };
 		ED98B516254AF4E200BB959E /* InnerNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InnerNavigationController.swift; sourceTree = "<group>"; };
 		ED98B519254AF5A600BB959E /* NavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
 		ED9D32F8254ACCA200936872 /* VkTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VkTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -72,6 +76,48 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		ED4CCBF6254B213100566BAB /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				ED9D3347254AD68900936872 /* BrowseViewController.swift */,
+				ED9D334A254AD6C900936872 /* OptionsViewController.swift */,
+				ED9D334D254AD6FB00936872 /* LoginViewController.swift */,
+				ED9D3350254AD9B700936872 /* TabBarController.swift */,
+				ED98B516254AF4E200BB959E /* InnerNavigationController.swift */,
+				ED98B519254AF5A600BB959E /* NavigationController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		ED4CCBFC254B214700566BAB /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				ED4CCBEA254AFFF100566BAB /* VkTest.entitlements */,
+				ED9D32FB254ACCA200936872 /* AppDelegate.swift */,
+				ED9D32FD254ACCA200936872 /* SceneDelegate.swift */,
+				ED9D3309254ACCAA00936872 /* Info.plist */,
+				ED9D3304254ACCAA00936872 /* Assets.xcassets */,
+				ED9D3306254ACCAA00936872 /* LaunchScreen.storyboard */,
+			);
+			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		ED4CCC00254B216200566BAB /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				ED4CCBF0254B1FA800566BAB /* VKAuthPayload.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		ED4CCC01254B216D00566BAB /* View */ = {
+			isa = PBXGroup;
+			children = (
+				ED9D3301254ACCA200936872 /* Main.storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		ED9D32EF254ACCA200936872 = {
 			isa = PBXGroup;
 			children = (
@@ -93,20 +139,12 @@
 		ED9D32FA254ACCA200936872 /* VkTest */ = {
 			isa = PBXGroup;
 			children = (
-				ED4CCBEA254AFFF100566BAB /* VkTest.entitlements */,
-				ED9D32FB254ACCA200936872 /* AppDelegate.swift */,
-				ED9D32FD254ACCA200936872 /* SceneDelegate.swift */,
-				ED9D3301254ACCA200936872 /* Main.storyboard */,
-				ED9D3304254ACCAA00936872 /* Assets.xcassets */,
-				ED9D3306254ACCAA00936872 /* LaunchScreen.storyboard */,
-				ED9D3309254ACCAA00936872 /* Info.plist */,
-				ED9D3347254AD68900936872 /* BrowseViewController.swift */,
-				ED9D334A254AD6C900936872 /* OptionsViewController.swift */,
-				ED9D334D254AD6FB00936872 /* LoginViewController.swift */,
-				ED9D3350254AD9B700936872 /* TabBarController.swift */,
+				ED4CCBF6254B213100566BAB /* Controller */,
+				ED4CCC00254B216200566BAB /* Model */,
+				ED4CCBFC254B214700566BAB /* Supporting Files */,
+				ED4CCC01254B216D00566BAB /* View */,
 				ED9D3357254AEB7800936872 /* VKAuthHelper.swift */,
-				ED98B516254AF4E200BB959E /* InnerNavigationController.swift */,
-				ED98B519254AF5A600BB959E /* NavigationController.swift */,
+				ED4CCC02254B221D00566BAB /* UserCredentialsHelper.swift */,
 			);
 			path = VkTest;
 			sourceTree = "<group>";
@@ -228,12 +266,14 @@
 				ED9D3358254AEB7800936872 /* VKAuthHelper.swift in Sources */,
 				ED9D3348254AD68900936872 /* BrowseViewController.swift in Sources */,
 				ED98B517254AF4E200BB959E /* InnerNavigationController.swift in Sources */,
+				ED4CCC03254B221D00566BAB /* UserCredentialsHelper.swift in Sources */,
 				ED9D334B254AD6C900936872 /* OptionsViewController.swift in Sources */,
 				ED98B51A254AF5A600BB959E /* NavigationController.swift in Sources */,
 				ED9D32FC254ACCA200936872 /* AppDelegate.swift in Sources */,
 				ED9D3351254AD9B700936872 /* TabBarController.swift in Sources */,
 				ED9D334E254AD6FB00936872 /* LoginViewController.swift in Sources */,
 				ED9D32FE254ACCA200936872 /* SceneDelegate.swift in Sources */,
+				ED4CCBF1254B1FA800566BAB /* VKAuthPayload.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -381,10 +421,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = VkTest/VkTest.entitlements;
+				CODE_SIGN_ENTITLEMENTS = "VkTest/Supporting Files/VkTest.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = KVZVUNQ279;
-				INFOPLIST_FILE = VkTest/Info.plist;
+				INFOPLIST_FILE = "VkTest/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -402,10 +442,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = VkTest/VkTest.entitlements;
+				CODE_SIGN_ENTITLEMENTS = "VkTest/Supporting Files/VkTest.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = KVZVUNQ279;
-				INFOPLIST_FILE = VkTest/Info.plist;
+				INFOPLIST_FILE = "VkTest/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
