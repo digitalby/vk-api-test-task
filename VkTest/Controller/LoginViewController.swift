@@ -15,6 +15,7 @@ class LoginViewController: UIViewController {
     @IBOutlet var refreshButton: UIBarButtonItem!
 
     let authHelper = VKAuthHelper()
+    let credentialsHelper = UserCredentialsHelper()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -78,7 +79,11 @@ extension LoginViewController: WKNavigationDelegate {
         }
         if components.path.contains("blank.html") {
             authHelper.verifyVKSignIn(for: components) { [self] payload in
-                print("OAuth payload: \(payload)")
+                do {
+                    try credentialsHelper.saveOAuthPayload(payload)
+                } catch {
+                }
+                dismiss(animated: true, completion: nil)
             } error: { [self] error in
                 print("Error: \(error)")
             }

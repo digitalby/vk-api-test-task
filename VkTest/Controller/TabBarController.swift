@@ -9,9 +9,13 @@ import UIKit
 
 class TabBarController: UITabBarController {
 
+    let userCredentialsHelper = UserCredentialsHelper()
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        navigationController?.performSegue(withIdentifier: "PresentLogin", sender: self)
+        if (try? userCredentialsHelper.loadOAuthPayload()) == nil {
+            navigationController?.performSegue(withIdentifier: "PresentLogin", sender: self)
+        }
     }
 }
