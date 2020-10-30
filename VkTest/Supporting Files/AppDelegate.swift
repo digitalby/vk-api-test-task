@@ -6,14 +6,27 @@
 //
 
 import UIKit
+import RealmSwift
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-
+    static var defaultRealm: Realm? {
+        get {
+            (UIApplication.shared.delegate as? AppDelegate)?.realm
+        } set {
+            (UIApplication.shared.delegate as? AppDelegate)?.realm = newValue
+        }
+    }
+    var realm: Realm? = nil
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        do {
+            realm = try Realm()
+        } catch {
+            print("Can't init Realm.")
+        }
         return true
     }
 
