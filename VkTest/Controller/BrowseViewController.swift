@@ -194,6 +194,10 @@ extension BrowseViewController {
             tableView?.insertRows(at: [IndexPath(row: nextRow, section: 0)], with: .automatic)
         }
         tableView?.endUpdates()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) { [self] in
+            tableView?.beginUpdates()
+            tableView?.endUpdates()
+        }
     }
 
     func refreshPosts(resetExisting: Bool = true) {
