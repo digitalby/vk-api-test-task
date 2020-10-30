@@ -84,7 +84,7 @@ extension LoginViewController: WKNavigationDelegate {
                 } catch {
                 }
                 dismiss(animated: true, completion: nil)
-            } error: { [self] error in
+            } error: { error in
                 print("Error: \(error)")
             }
         }

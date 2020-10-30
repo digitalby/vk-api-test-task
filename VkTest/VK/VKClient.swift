@@ -58,8 +58,8 @@ class VKClient {
     }
 
     func requestVKGroupsForCurrentUser(amount: Int, offset: Int, then: @escaping (VKGroupsRequestResult)->()) {
-        requestVKGroupsForSampleID(amount: amount, offset: offset, then: then)
-        return;
+//        requestVKGroupsForSampleID(amount: amount, offset: offset, then: then)
+//        return;
         let userID: Int
         do {
             guard let payload = try requester.userCredentialsHelper.loadOAuthPayload(),
@@ -117,8 +117,8 @@ class VKClient {
     }
 
     func requestVKPostsForCurrentUser(amount: Int, offset: Int, then: @escaping (VKPostsRequestResult)->()) {
-        requestVKPostsForDurov(amount: amount, offset: offset, then: then)
-        return;
+//        requestVKPostsForDurov(amount: amount, offset: offset, then: then)
+//        return;
         let userID: Int
         do {
             guard let payload = try requester.userCredentialsHelper.loadOAuthPayload(),
