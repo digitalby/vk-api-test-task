@@ -19,10 +19,18 @@ class BrowseViewController: UIViewController {
 
     let userCredentialsHelper = UserCredentialsHelper()
 
+    lazy var tableViewHandler = LazyTableViewHandler { (item: String) -> UITableViewCell in
+        let cell = UITableViewCell()
+        cell.textLabel?.numberOfLines = 8
+        cell.textLabel?.text = item
+        return cell
+    } onLazyLoad: { _ in
+        self.refreshPostsWithDefaultAuthPayload(resetExisting: false)
+    }
+
+
     let session = Session()
     let postingSession = Session()
-
-    private(set) var posts = [String]()
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -46,8 +54,8 @@ class BrowseViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView?.refreshControl = refreshControl
-        tableView?.dataSource = self
-        tableView?.delegate = self
+        tableView?.dataSource = tableViewHandler
+        tableView?.delegate = tableViewHandler
         refreshControl.addTarget(self, action: #selector(didPullToRefresh), for: .valueChanged)
         guard let createPostView = createPostView else {
             return
@@ -141,7 +149,7 @@ extension BrowseViewController {
             URLQueryItem(name: "owner_id", value: String(userID)),
 //            URLQueryItem(name: "owner_id", value: "1"),
             URLQueryItem(name: "count", value: "20"),
-            URLQueryItem(name: "offset", value: resetExisting ? "0" : "\(posts.count)")
+            URLQueryItem(name: "offset", value: resetExisting ? "0" : "\(tableViewHandler.items.count)")
         ]
         let url: URL
         do {
@@ -165,14 +173,14 @@ extension BrowseViewController {
                     }
                     let jsonResponse = json["response"]
                     let jsonItems = jsonResponse["items"].array ?? []
-                    var postsCount = self?.posts.count ?? 0
+                    var postsCount = self?.tableViewHandler.items.count ?? 0
 
                     guard let self = self else {
                         return
                     }
                     self.tableView?.beginUpdates()
                     if resetExisting {
-                        self.posts = []
+                        self.tableViewHandler.items = []
                         for i in 0..<postsCount {
                             self.tableView?.deleteRows(at: [IndexPath(row: i, section: 0)], with: .automatic)
                         }
@@ -181,40 +189,14 @@ extension BrowseViewController {
                     for i in 0..<jsonItems.count {
                         let item = jsonItems[i]
                         let postText = item["text"].string ?? "<error>"
-                        let nextRow = self.posts.count
-                        self.posts.append(postText)
+                        let nextRow = self.tableViewHandler.items.count
+                        self.tableViewHandler.items.append(postText)
                         self.tableView?.insertRows(at: [IndexPath(row: nextRow, section: 0)], with: .automatic)
                     }
                     self.tableView?.endUpdates()
                 }
             }
         }
-    }
-}
-
-//MARK: - Table View Data Source + Delegate
-extension BrowseViewController: UITableViewDataSource, UITableViewDelegate {
-    func numberOfSections(in tableView: UITableView) -> Int {
-        1
-    }
-
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        posts.count
-    }
-
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell()
-        cell.textLabel?.numberOfLines = 8
-        cell.textLabel?.text = posts[indexPath.row]
-
-        if indexPath.row + 1 == posts.count {
-            refreshPostsWithDefaultAuthPayload(resetExisting: false)
-        }
-        return cell
-    }
-
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: false)
     }
 }
 
@@ -235,7 +217,7 @@ extension BrowseViewController {
         if let payload = notification?.object as? VKAuthPayload {
             refreshPostsWithAuthPayload(payload)
         } else {
-            posts = []
+            tableViewHandler.items = []
             tableView?.reloadData()
         }
     }

@@ -28,6 +28,7 @@
 		ED9D334E254AD6FB00936872 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED9D334D254AD6FB00936872 /* LoginViewController.swift */; };
 		ED9D3351254AD9B700936872 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED9D3350254AD9B700936872 /* TabBarController.swift */; };
 		ED9D3358254AEB7800936872 /* VKAuthHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED9D3357254AEB7800936872 /* VKAuthHelper.swift */; };
+		EDB05090254C101600A5AFE6 /* LazyTableViewHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDB0508F254C101600A5AFE6 /* LazyTableViewHandler.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -57,6 +58,7 @@
 		ED9D334D254AD6FB00936872 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		ED9D3350254AD9B700936872 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		ED9D3357254AEB7800936872 /* VKAuthHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VKAuthHelper.swift; sourceTree = "<group>"; };
+		EDB0508F254C101600A5AFE6 /* LazyTableViewHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LazyTableViewHandler.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -163,6 +165,7 @@
 				ED4CCC0F254B3E5800566BAB /* NSNotificationName+AppNotifications.swift */,
 				ED4CCC2C254B697100566BAB /* CreatePostViewDelegate.swift */,
 				ED4CCC2F254B76A600566BAB /* KeyboardConstraintAdjuster.swift */,
+				EDB0508F254C101600A5AFE6 /* LazyTableViewHandler.swift */,
 			);
 			path = VkTest;
 			sourceTree = "<group>";
@@ -284,6 +287,7 @@
 			files = (
 				ED9D3358254AEB7800936872 /* VKAuthHelper.swift in Sources */,
 				ED4CCC0D254B28B600566BAB /* AvatarView.swift in Sources */,
+				EDB05090254C101600A5AFE6 /* LazyTableViewHandler.swift in Sources */,
 				ED4CCC2D254B697100566BAB /* CreatePostViewDelegate.swift in Sources */,
 				ED9D3348254AD68900936872 /* BrowseViewController.swift in Sources */,
 				ED4CCC10254B3E5800566BAB /* NSNotificationName+AppNotifications.swift in Sources */,
