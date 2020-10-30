@@ -41,6 +41,7 @@ class RealmClient {
         let persistentPost = PersistentPost()
         persistentPost.text = post.text
         persistentPost.postID = post.postID
+        persistentPost.postDate = post.postDate
         try realm?.write {
             realm?.add(persistentPost)
         }
@@ -48,7 +49,7 @@ class RealmClient {
     }
 
     func loadPosts() -> [PersistentPost] {
-        if let objects = realm?.objects(PersistentPost.self) {
+        if let objects = realm?.objects(PersistentPost.self).sorted(byKeyPath: #keyPath(PersistentPost.postDate), ascending: false) {
             return Array(objects)
         } else {
             return []

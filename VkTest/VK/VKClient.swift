@@ -96,10 +96,17 @@ class VKClient {
                 }
                 let jsonResponse = json[VKRequestConstants.kJSONResponseKey]
                 let jsonItems = jsonResponse[VKRequestConstants.kJSONItemsKey].array ?? []
-                let payloads = jsonItems.map {
-                    VKPostPayload(
-                        text: $0[VKRequestConstants.kPostsPayloadPostTextKey].string,
-                        postID: $0[VKRequestConstants.kPostsPayloadPostIDKey].int
+                let payloads = jsonItems.map { (jsonArrayItem) -> VKPostPayload in
+                    let date: Date
+                    if let dateInt = jsonArrayItem[VKRequestConstants.kPostsPayloadPostDateKey].int {
+                        date = Date(timeIntervalSince1970: Double(dateInt))
+                    } else {
+                        date = Date()
+                    }
+                    return VKPostPayload(
+                        text: jsonArrayItem[VKRequestConstants.kPostsPayloadPostTextKey].string,
+                        postID: jsonArrayItem[VKRequestConstants.kPostsPayloadPostIDKey].int,
+                        postDate: date
                     )
                 }
                 then(.success(payloads))

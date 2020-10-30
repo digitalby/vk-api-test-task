@@ -44,4 +44,5 @@ struct VKRequestConstants {
     //MARK: Posts payload
     static let kPostsPayloadPostIDKey = "post_id"
     static let kPostsPayloadPostTextKey = "text"
+    static let kPostsPayloadPostDateKey = "date"
 }

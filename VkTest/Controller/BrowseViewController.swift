@@ -16,6 +16,12 @@ class BrowseViewController: UIViewController {
     let refreshControl = UIRefreshControl()
 
     private(set) var keyboardConstraintAdjuster: KeyboardConstraintAdjuster!
+    private static let defaultDateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .short
+        formatter.timeStyle = .none
+        return formatter
+    }()
 
     lazy var tableViewHandler = LazyTableViewHandler { (item: PostWrapper) -> UITableViewCell in
         let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "PostCell")
@@ -26,10 +32,10 @@ class BrowseViewController: UIViewController {
             cell.detailTextLabel?.text = ""
         case .persistent(let post):
             cell.textLabel?.text = post.text?.count == 0 ? "<empty post>" : post.text
-            cell.detailTextLabel?.text = "Tap to unsave"
+            cell.detailTextLabel?.text = "\(Self.defaultDateFormatter.string(from: post.postDate)) | Tap to unsave"
         case .struct(let post):
             cell.textLabel?.text = post.text?.count == 0 ? "<empty post>" : post.text
-            cell.detailTextLabel?.text = "Tap to save"
+            cell.detailTextLabel?.text = "\(Self.defaultDateFormatter.string(from: post.postDate)) | Tap to save"
         }
         return cell
     } onLazyLoad: { _ in
@@ -81,7 +87,8 @@ class BrowseViewController: UIViewController {
                 case .persistent(let post):
                     let payload = VKPostPayload(
                         text: post.text,
-                        postID: post.postID
+                        postID: post.postID,
+                        postDate: post.postDate
                     )
                     try self.realmClient.deletePost(post)
                     tableView?.beginUpdates()

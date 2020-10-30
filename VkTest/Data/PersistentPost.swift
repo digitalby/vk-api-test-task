@@ -11,4 +11,5 @@ import RealmSwift
 @objcMembers class PersistentPost: Object {
     dynamic var text: String?
     dynamic var postID: Int?
+    dynamic var postDate: Date = Date()
 }
