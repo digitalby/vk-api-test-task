@@ -21,6 +21,7 @@ struct VKRequestConstants {
     static let kOffsetQueryItem = "offset"
     static let kUserIDsQueryItem = "user_ids"
     static let kFieldsQueryItem = "fields"
+    static let kMessageQueryItem = "message"
 
     //MARK: Query values
     static let kVersionValue5_52 = "5.52"
@@ -28,6 +29,7 @@ struct VKRequestConstants {
 
     //MARK: Response
     static let kJSONResponseKey = "response"
+    static let kJSONItemsKey = "items"
 
     //MARK: Error
     static let kJSONErrorKey = "error"
@@ -38,4 +40,8 @@ struct VKRequestConstants {
     static let kUserPayloadFirstNameKey = "first_name"
     static let kUserPayloadLastNameKey = "last_name"
     static let kUserPayloadPhoto200Key = "photo_200"
+
+    //MARK: Posts payload
+    static let kPostsPayloadPostIDKey = "post_id"
+    static let kPostsPayloadPostTextKey = "text"
 }

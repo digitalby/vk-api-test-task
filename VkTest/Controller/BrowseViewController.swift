@@ -17,24 +17,24 @@ class BrowseViewController: UIViewController {
 
     private(set) var keyboardConstraintAdjuster: KeyboardConstraintAdjuster!
 
-    let userCredentialsHelper = UserCredentialsHelper()
-
     lazy var tableViewHandler = LazyTableViewHandler { (item: String) -> UITableViewCell in
         let cell = UITableViewCell()
         cell.textLabel?.numberOfLines = 8
         cell.textLabel?.text = item
         return cell
     } onLazyLoad: { _ in
-        self.refreshPostsWithDefaultAuthPayload(resetExisting: false)
+        self.refreshPosts(resetExisting: false)
     }
 
-
-    let session = Session()
-    let postingSession = Session()
+    let client = VKClient(
+        requester: VKRequester(
+            userCredentialsHelper: UserCredentialsHelper()
+        )
+    )
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        refreshPostsWithDefaultAuthPayload()
+        refreshPosts()
     }
 
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -80,47 +80,21 @@ class BrowseViewController: UIViewController {
 //MARK: - Control views
 extension BrowseViewController {
     @objc func didPullToRefresh(_ sender: Any?) {
-        refreshPostsWithDefaultAuthPayload()
+        refreshPosts()
     }
 }
 
 //MARK: - Create posts
 extension BrowseViewController {
-    func createTextPost(_ text: String, authPayload: VKAuthPayload) {
-        postingSession.cancelAllRequests()
-        guard let userId = authPayload.userId else {
-            return
-        }
-        var components = URLComponents(string: #"https://api.vk.com/method/wall.post"#)!
-        components.queryItems = [
-            URLQueryItem(name: "v", value: "5.52"),
-            URLQueryItem(name: "access_token", value: authPayload.accessToken),
-            URLQueryItem(name: "owner_id", value: String(userId)),
-            URLQueryItem(name: "message", value: text),
-        ]
-        let url: URL
-        do {
-            url = try components.asURL()
-        } catch {
-            refreshControl.endRefreshing()
-            return
-        }
-        session.request(url).validate().responseJSON { [weak self] response in
-            if let error = response.error {
-                print("Request error \(error)")
-            } else if let value = response.value {
-                let json = JSON(value)
-                if let jsonErrorCode = json["error"]["error_code"].int,
-                   let jsonErrorMessage = json["error"]["error_msg"].string {
-                    print("VK returned an error (\(jsonErrorCode)): \(jsonErrorMessage)")
-                    return
-                }
-                if json["response"]["post_id"].int != nil {
-                    DispatchQueue.main.async {
-                        self?.refreshPostsWithAuthPayload(authPayload, resetExisting: true)
-                    }
-                } else {
-                    print("No response retrieved")
+    func createTextPost(_ text: String) {
+        client.requester.session.cancelAllRequests()
+        client.createVKPostForCurrentUser(message: text) { result in
+            switch result {
+            case .failure(let error):
+                print("Create post error \(error)")
+            case .success(_):
+                DispatchQueue.main.async { [weak self] in
+                    self?.refreshPosts(resetExisting: true)
                 }
             }
         }
@@ -129,71 +103,44 @@ extension BrowseViewController {
 
 //MARK: - Get data
 extension BrowseViewController {
-    func refreshPostsWithDefaultAuthPayload(resetExisting: Bool = true) {
-        if let payload = try? userCredentialsHelper.loadOAuthPayload() {
-            refreshPostsWithAuthPayload(payload, resetExisting: resetExisting)
+
+    func processNewPayloads(_ payloads: [VKPostPayload], resetExisting: Bool) {
+        var postsCount = tableViewHandler.items.count
+
+        tableView?.beginUpdates()
+        if resetExisting {
+            tableViewHandler.items = []
+            for i in 0..<postsCount {
+                tableView?.deleteRows(at: [IndexPath(row: i, section: 0)], with: .automatic)
+            }
+            postsCount = 0
         }
+        for i in 0..<payloads.count {
+            let item = payloads[i]
+            let postText = item.text ?? "<error>"
+            let nextRow = tableViewHandler.items.count
+            tableViewHandler.items.append(postText)
+            tableView?.insertRows(at: [IndexPath(row: nextRow, section: 0)], with: .automatic)
+        }
+        tableView?.endUpdates()
     }
 
-    func refreshPostsWithAuthPayload(_ authPayload: VKAuthPayload, resetExisting: Bool = true) {
-        session.cancelAllRequests()
+    func refreshPosts(resetExisting: Bool = true) {
+        client.requester.session.cancelAllRequests()
         refreshControl.beginRefreshing()
-        guard let userID = authPayload.userId else {
-            refreshControl.endRefreshing()
-            return
-        }
-        var components = URLComponents(string: #"https://api.vk.com/method/wall.get"#)!
-        components.queryItems = [
-            URLQueryItem(name: "v", value: "5.52"),
-            URLQueryItem(name: "access_token", value: authPayload.accessToken),
-            URLQueryItem(name: "owner_id", value: String(userID)),
-//            URLQueryItem(name: "owner_id", value: "1"),
-            URLQueryItem(name: "count", value: "20"),
-            URLQueryItem(name: "offset", value: resetExisting ? "0" : "\(tableViewHandler.items.count)")
-        ]
-        let url: URL
-        do {
-            url = try components.asURL()
-        } catch {
-            refreshControl.endRefreshing()
-            return
-        }
-        session.request(url).validate().responseJSON { [weak self] response in
-            defer {
+        client.requestVKPostsForCurrentUser(
+            amount: 20,
+            offset: resetExisting ? 0 : tableViewHandler.items.count
+        ) { result in
+            DispatchQueue.main.async { [weak self] in
                 self?.refreshControl.endRefreshing()
-            }
-            if let error = response.error {
-                print("Request error \(error)")
-            } else if let value = response.value {
-                DispatchQueue.main.async {
-                    let json = JSON(value)
-                    if let jsonErrorCode = json["error"]["error_code"].int, let jsonErrorMessage = json["error"]["error_msg"].string {
-                        print("VK returned an error (\(jsonErrorCode)): \(jsonErrorMessage)")
-                        return
+                switch result {
+                case .failure(let error):
+                    print("Refresh posts error \(error)")
+                case .success(let payloads):
+                    DispatchQueue.main.async {
+                        self?.processNewPayloads(payloads, resetExisting: resetExisting)
                     }
-                    let jsonResponse = json["response"]
-                    let jsonItems = jsonResponse["items"].array ?? []
-                    var postsCount = self?.tableViewHandler.items.count ?? 0
-
-                    guard let self = self else {
-                        return
-                    }
-                    self.tableView?.beginUpdates()
-                    if resetExisting {
-                        self.tableViewHandler.items = []
-                        for i in 0..<postsCount {
-                            self.tableView?.deleteRows(at: [IndexPath(row: i, section: 0)], with: .automatic)
-                        }
-                        postsCount = 0
-                    }
-                    for i in 0..<jsonItems.count {
-                        let item = jsonItems[i]
-                        let postText = item["text"].string ?? "<error>"
-                        let nextRow = self.tableViewHandler.items.count
-                        self.tableViewHandler.items.append(postText)
-                        self.tableView?.insertRows(at: [IndexPath(row: nextRow, section: 0)], with: .automatic)
-                    }
-                    self.tableView?.endUpdates()
                 }
             }
         }
@@ -204,18 +151,16 @@ extension BrowseViewController {
 extension BrowseViewController: CreatePostViewDelegate {
     func createPostView(_ createPostView: CreatePostView, didTapSendButtonWith text: String) {
         createPostView.textView?.text = ""
-        guard let payload = try? userCredentialsHelper.loadOAuthPayload() else {
-            return
-        }
-        self.createTextPost(text, authPayload: payload)
+
+        createTextPost(text)
     }
 }
 
 //MARK: - Observer
 extension BrowseViewController {
     @objc func onCredentialsChanged(_ notification: Notification?) {
-        if let payload = notification?.object as? VKAuthPayload {
-            refreshPostsWithAuthPayload(payload)
+        if notification?.object as? VKAuthPayload != nil {
+            refreshPosts()
         } else {
             tableViewHandler.items = []
             tableView?.reloadData()

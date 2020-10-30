@@ -11,6 +11,7 @@
 		ED1DA2CC254C1EE400962F82 /* VKUserPayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1DA2CB254C1EE400962F82 /* VKUserPayload.swift */; };
 		ED1DA2CF254C216E00962F82 /* VKError.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1DA2CE254C216E00962F82 /* VKError.swift */; };
 		ED1DA2D2254C26E800962F82 /* VKImageDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1DA2D1254C26E800962F82 /* VKImageDownloader.swift */; };
+		ED1DA2D5254C2B6F00962F82 /* VKPostPayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1DA2D4254C2B6F00962F82 /* VKPostPayload.swift */; };
 		ED4CCBF1254B1FA800566BAB /* VKAuthPayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED4CCBF0254B1FA800566BAB /* VKAuthPayload.swift */; };
 		ED4CCC03254B221D00566BAB /* UserCredentialsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED4CCC02254B221D00566BAB /* UserCredentialsHelper.swift */; };
 		ED4CCC0D254B28B600566BAB /* AvatarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED4CCC0C254B28B600566BAB /* AvatarView.swift */; };
@@ -45,6 +46,7 @@
 		ED1DA2CB254C1EE400962F82 /* VKUserPayload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VKUserPayload.swift; sourceTree = "<group>"; };
 		ED1DA2CE254C216E00962F82 /* VKError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VKError.swift; sourceTree = "<group>"; };
 		ED1DA2D1254C26E800962F82 /* VKImageDownloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VKImageDownloader.swift; sourceTree = "<group>"; };
+		ED1DA2D4254C2B6F00962F82 /* VKPostPayload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VKPostPayload.swift; sourceTree = "<group>"; };
 		ED4CCBEA254AFFF100566BAB /* VkTest.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = VkTest.entitlements; sourceTree = "<group>"; };
 		ED4CCBF0254B1FA800566BAB /* VKAuthPayload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VKAuthPayload.swift; sourceTree = "<group>"; };
 		ED4CCC02254B221D00566BAB /* UserCredentialsHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCredentialsHelper.swift; sourceTree = "<group>"; };
@@ -136,6 +138,7 @@
 				ED4CCBF0254B1FA800566BAB /* VKAuthPayload.swift */,
 				ED1DA2CB254C1EE400962F82 /* VKUserPayload.swift */,
 				ED1DA2CE254C216E00962F82 /* VKError.swift */,
+				ED1DA2D4254C2B6F00962F82 /* VKPostPayload.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -326,6 +329,7 @@
 				ED1DA2CC254C1EE400962F82 /* VKUserPayload.swift in Sources */,
 				EDB05093254C180D00A5AFE6 /* VKRequestInterceptor.swift in Sources */,
 				ED4CCC03254B221D00566BAB /* UserCredentialsHelper.swift in Sources */,
+				ED1DA2D5254C2B6F00962F82 /* VKPostPayload.swift in Sources */,
 				EDB05099254C1CC100A5AFE6 /* VKClient.swift in Sources */,
 				ED1DA2D2254C26E800962F82 /* VKImageDownloader.swift in Sources */,
 				ED9D334B254AD6C900936872 /* OptionsViewController.swift in Sources */,
