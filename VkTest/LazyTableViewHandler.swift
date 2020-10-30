@@ -14,6 +14,13 @@ class LazyTableViewHandler<T>: NSObject, UITableViewDataSource, UITableViewDeleg
 
     //First argument is number of items
     private var onLazyLoad: (Int)->()
+    //Argument is indexPath.row
+    var onCellTap: (Int)->() = { _ in }
+    //Argument is indexPath.row
+    lazy var lazyLoadCondition: (Int)->(Bool) = {
+        $0 + 1 == self.items.count
+    }
+    //Argument is item for cell
     private var cellBuilder: (T)->(UITableViewCell)
 
     init(cellBuilder: @escaping (T)->(UITableViewCell), onLazyLoad: @escaping (Int)->()) {
@@ -29,7 +36,7 @@ class LazyTableViewHandler<T>: NSObject, UITableViewDataSource, UITableViewDeleg
         let item = items[indexPath.row]
         let cell = cellBuilder(item)
 
-        if indexPath.row + 1 == items.count {
+        if lazyLoadCondition(indexPath.row) {
             onLazyLoad(lazyLoadThreshold)
         }
         return cell
@@ -37,5 +44,6 @@ class LazyTableViewHandler<T>: NSObject, UITableViewDataSource, UITableViewDeleg
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
+        onCellTap(indexPath.row)
     }
 }

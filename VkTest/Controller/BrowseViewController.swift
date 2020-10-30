@@ -17,23 +17,35 @@ class BrowseViewController: UIViewController {
 
     private(set) var keyboardConstraintAdjuster: KeyboardConstraintAdjuster!
 
-    lazy var tableViewHandler = LazyTableViewHandler { (item: String) -> UITableViewCell in
-        let cell = UITableViewCell()
+    lazy var tableViewHandler = LazyTableViewHandler { (item: PostWrapper) -> UITableViewCell in
+        let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "PostCell")
         cell.textLabel?.numberOfLines = 8
-        cell.textLabel?.text = item
+        switch item {
+        case .error:
+            cell.textLabel?.text = "<error>"
+            cell.detailTextLabel?.text = ""
+        case .persistent(let post):
+            cell.textLabel?.text = post.text?.count == 0 ? "<empty post>" : post.text
+            cell.detailTextLabel?.text = "Tap to unsave"
+        case .struct(let post):
+            cell.textLabel?.text = post.text?.count == 0 ? "<empty post>" : post.text
+            cell.detailTextLabel?.text = "Tap to save"
+        }
         return cell
     } onLazyLoad: { _ in
         self.refreshPosts(resetExisting: false)
     }
 
-    let client = VKClient(
+    let vkClient = VKClient(
         requester: VKRequester(
             userCredentialsHelper: UserCredentialsHelper()
         )
     )
+    let realmClient = RealmClient()
 
     override func awakeFromNib() {
         super.awakeFromNib()
+        loadPersistentData()
         refreshPosts()
     }
 
@@ -53,6 +65,49 @@ class BrowseViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        tableViewHandler.lazyLoadCondition = { [self] i in
+            let numberOfNonPersistentItems = self.tableViewHandler.items.filter {
+                if case .struct(_) = $0 {
+                    return true
+                }
+                return false
+            }.count
+            return i + 1 == numberOfNonPersistentItems
+        }
+        tableViewHandler.onCellTap = { [self] i in
+            do {
+                switch tableViewHandler.items[i] {
+                case .persistent(let post):
+                    let payload = VKPostPayload(
+                        text: post.text,
+                        postID: post.postID
+                    )
+                    try self.realmClient.deletePost(post)
+                    tableView?.beginUpdates()
+                    tableViewHandler.items[i] = .struct(payload)
+                    tableView?.reloadRows(at: [IndexPath(row: i, section: 0)], with: .automatic)
+                    tableView?.endUpdates()
+                case .struct(let post):
+                    guard let newPost = try self.realmClient.persistPost(post) else {
+                        return
+                    }
+                    tableView?.beginUpdates()
+                    tableViewHandler.items[i] = .persistent(newPost)
+                    let indexPath = IndexPath(row: i, section: 0)
+                    tableView?.reloadRows(at: [indexPath], with: .fade)
+                    tableView?.endUpdates()
+                default:
+                    break
+                }
+            } catch {
+                print("Realm error \(error)")
+            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
+                tableView?.beginUpdates()
+                tableView?.endUpdates()
+            }
+        }
         tableView?.refreshControl = refreshControl
         tableView?.dataSource = tableViewHandler
         tableView?.delegate = tableViewHandler
@@ -87,8 +142,8 @@ extension BrowseViewController {
 //MARK: - Create posts
 extension BrowseViewController {
     func createTextPost(_ text: String) {
-        client.requester.session.cancelAllRequests()
-        client.createVKPostForCurrentUser(message: text) { result in
+        vkClient.requester.session.cancelAllRequests()
+        vkClient.createVKPostForCurrentUser(message: text) { result in
             switch result {
             case .failure(let error):
                 print("Create post error \(error)")
@@ -103,6 +158,16 @@ extension BrowseViewController {
 
 //MARK: - Get data
 extension BrowseViewController {
+    func loadPersistentData() {
+        let posts = realmClient.loadPosts()
+        tableView?.beginUpdates()
+        for post in posts {
+            let nextRow = tableViewHandler.items.count
+            tableViewHandler.items.append(.persistent(post))
+            tableView?.insertRows(at: [IndexPath(row: nextRow, section: 0)], with: .automatic)
+        }
+        tableView?.endUpdates()
+    }
 
     func processNewPayloads(_ payloads: [VKPostPayload], resetExisting: Bool) {
         var postsCount = tableViewHandler.items.count
@@ -117,18 +182,17 @@ extension BrowseViewController {
         }
         for i in 0..<payloads.count {
             let item = payloads[i]
-            let postText = item.text ?? "<error>"
             let nextRow = tableViewHandler.items.count
-            tableViewHandler.items.append(postText)
+            tableViewHandler.items.append(.struct(item))
             tableView?.insertRows(at: [IndexPath(row: nextRow, section: 0)], with: .automatic)
         }
         tableView?.endUpdates()
     }
 
     func refreshPosts(resetExisting: Bool = true) {
-        client.requester.session.cancelAllRequests()
+        vkClient.requester.session.cancelAllRequests()
         refreshControl.beginRefreshing()
-        client.requestVKPostsForCurrentUser(
+        vkClient.requestVKPostsForCurrentUser(
             amount: 20,
             offset: resetExisting ? 0 : tableViewHandler.items.count
         ) { result in

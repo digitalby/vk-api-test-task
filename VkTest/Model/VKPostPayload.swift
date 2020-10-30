@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct VKPostPayload {
+struct VKPostPayload: Equatable, Hashable, Codable {
     let text: String?
     let postID: Int?
 }

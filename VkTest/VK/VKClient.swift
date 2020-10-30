@@ -57,8 +57,8 @@ class VKClient {
     }
 
     func requestVKPostsForCurrentUser(amount: Int, offset: Int, then: @escaping (VKPostsRequestResult)->()) {
-//        requestVKPostsForDurov(amount: amount, offset: offset, then: then)
-//        return;
+        requestVKPostsForDurov(amount: amount, offset: offset, then: then)
+        return;
         let userID: Int
         do {
             guard let payload = try requester.userCredentialsHelper.loadOAuthPayload(),

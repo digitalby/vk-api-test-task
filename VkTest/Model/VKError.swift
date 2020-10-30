@@ -28,4 +28,5 @@ struct VKError: Error, CustomNSError, LocalizedError {
 
 enum VKGenericError: Error {
     case noResponse
+    case badPostID
 }
