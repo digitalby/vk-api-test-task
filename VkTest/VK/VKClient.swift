@@ -58,7 +58,7 @@ class VKClient {
     }
 
     func requestVKGroupsForCurrentUser(amount: Int, offset: Int, then: @escaping (VKGroupsRequestResult)->()) {
-        requestVKGroupsForDurov(amount: amount, offset: offset, then: then)
+        requestVKGroupsForSampleID(amount: amount, offset: offset, then: then)
         return;
         let userID: Int
         do {
@@ -74,18 +74,18 @@ class VKClient {
         requestVKGroups(for: userID, amount: amount, offset: offset, then: then)
     }
 
-    func requestVKGroupsForDurov(amount: Int, offset: Int, then: @escaping (VKGroupsRequestResult)->()) {
-        requestVKGroups(for: 1, amount: amount, offset: offset, then: then)
+    func requestVKGroupsForSampleID(amount: Int, offset: Int, then: @escaping (VKGroupsRequestResult)->()) {
+        requestVKGroups(for: 66748, amount: amount, offset: offset, then: then)
     }
-
 
     func requestVKGroups(for userID: Int, amount: Int, offset: Int, then: @escaping (VKGroupsRequestResult)->()) {
         requester.performRequestForVKFunction(
             VKRequestConstants.kGroupsGetFunction,
             extras: [
-            VKRequestConstants.kUserIDQueryItem : String(userID),
-            VKRequestConstants.kCountQueryItem : String(amount),
-            VKRequestConstants.kOffsetQueryItem : String(offset),
+                VKRequestConstants.kUserIDQueryItem : String(userID),
+                VKRequestConstants.kCountQueryItem : String(amount),
+                VKRequestConstants.kOffsetQueryItem : String(offset),
+                VKRequestConstants.kExtendedQueryItem : String("1"),
         ]) { result in
             switch result {
             case .failure(let error):
@@ -97,10 +97,17 @@ class VKClient {
                 }
                 let jsonResponse = json[VKRequestConstants.kJSONResponseKey]
                 let jsonItems = jsonResponse[VKRequestConstants.kJSONItemsKey].array ?? []
-                let payloads = jsonItems.map {
-                    VKGroupPayload(
-                        name: $0[VKRequestConstants.kGroupsPayloadGroupNameKey].string ?? "",
-                        id: $0[VKRequestConstants.kGroupsPayloadGroupIDKey].int
+                var payloads = [VKGroupPayload]()
+                for jsonItem in jsonItems {
+                    if jsonItem[VKRequestConstants.kUserPayloadFirstNameKey].string != nil ||
+                        jsonItem[VKRequestConstants.kUserPayloadLastNameKey].string != nil {
+                        continue
+                    }
+                    payloads.append(
+                        VKGroupPayload(
+                            name: jsonItem[VKRequestConstants.kGroupsPayloadGroupNameKey].string ?? "",
+                            id: jsonItem[VKRequestConstants.kGroupsPayloadGroupIDKey].int
+                        )
                     )
                 }
                 then(.success(payloads))

@@ -22,8 +22,10 @@ class GroupsViewController: UIViewController {
             cell.detailTextLabel?.text = ""
         case .persistent(let group):
             cell.textLabel?.text = group.name
+            cell.detailTextLabel?.text = "Tap to unsave"
         case .struct(let group):
             cell.textLabel?.text = group.name
+            cell.detailTextLabel?.text = "Tap to save"
         }
         return cell
     } onLazyLoad: { _ in

@@ -12,7 +12,7 @@ struct VKRequestConstants {
     static let kWallGetFunction = "wall.get"
     static let kWallPostFunction = "wall.post"
     static let kUsersGetFunction = "users.get"
-    static let kGroupsGetFunction = "groups.get"
+    static let kGroupsGetFunction = "users.getSubscriptions"
 
     //MARK: Query params
     static let kVersionQueryItem = "v"
@@ -24,6 +24,7 @@ struct VKRequestConstants {
     static let kUserIDsQueryItem = "user_ids"
     static let kFieldsQueryItem = "fields"
     static let kMessageQueryItem = "message"
+    static let kExtendedQueryItem = "extended"
 
     //MARK: Query values
     static let kVersionValue5_52 = "5.52"
