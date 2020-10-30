@@ -20,6 +20,7 @@ class BrowseViewController: UIViewController {
     let userCredentialsHelper = UserCredentialsHelper()
 
     let session = Session()
+    let postingSession = Session()
 
     private(set) var posts = [String]()
 
@@ -72,6 +73,49 @@ class BrowseViewController: UIViewController {
 extension BrowseViewController {
     @objc func didPullToRefresh(_ sender: Any?) {
         refreshPostsWithDefaultAuthPayload()
+    }
+}
+
+//MARK: - Create posts
+extension BrowseViewController {
+    func createTextPost(_ text: String, authPayload: VKAuthPayload) {
+        postingSession.cancelAllRequests()
+        guard let userId = authPayload.userId else {
+            return
+        }
+        var components = URLComponents(string: #"https://api.vk.com/method/wall.post"#)!
+        components.queryItems = [
+            URLQueryItem(name: "v", value: "5.52"),
+            URLQueryItem(name: "access_token", value: authPayload.accessToken),
+            URLQueryItem(name: "owner_id", value: String(userId)),
+            URLQueryItem(name: "message", value: text),
+        ]
+        let url: URL
+        do {
+            url = try components.asURL()
+        } catch {
+            refreshControl.endRefreshing()
+            return
+        }
+        session.request(url).validate().responseJSON { [weak self] response in
+            if let error = response.error {
+                print("Request error \(error)")
+            } else if let value = response.value {
+                let json = JSON(value)
+                if let jsonErrorCode = json["error"]["error_code"].int,
+                   let jsonErrorMessage = json["error"]["error_msg"].string {
+                    print("VK returned an error (\(jsonErrorCode)): \(jsonErrorMessage)")
+                    return
+                }
+                if json["response"]["post_id"].int != nil {
+                    DispatchQueue.main.async {
+                        self?.refreshPostsWithAuthPayload(authPayload, resetExisting: true)
+                    }
+                } else {
+                    print("No response retrieved")
+                }
+            }
+        }
     }
 }
 
@@ -177,7 +221,11 @@ extension BrowseViewController: UITableViewDataSource, UITableViewDelegate {
 //MARK: - Create Post View Delegate
 extension BrowseViewController: CreatePostViewDelegate {
     func createPostView(_ createPostView: CreatePostView, didTapSendButtonWith text: String) {
-        print(text)
+        createPostView.textView?.text = ""
+        guard let payload = try? userCredentialsHelper.loadOAuthPayload() else {
+            return
+        }
+        self.createTextPost(text, authPayload: payload)
     }
 }
 
