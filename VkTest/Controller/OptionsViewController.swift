@@ -80,6 +80,10 @@ extension OptionsViewController {
                 print("Request error \(error)")
             } else if let value = response.value {
                 let json = JSON(value)
+                if let jsonErrorCode = json["error"]["error_code"].int, let jsonErrorMessage = json["error"]["error_msg"].string {
+                    print("VK returned an error (\(jsonErrorCode)): \(jsonErrorMessage)")
+                    return
+                }
                 let jsonResponse = json["response"][0]
                 if let firstName = jsonResponse["first_name"].string,
                    let lastName = jsonResponse["last_name"].string {

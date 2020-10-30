@@ -94,8 +94,8 @@ extension BrowseViewController {
         components.queryItems = [
             URLQueryItem(name: "v", value: "5.52"),
             URLQueryItem(name: "access_token", value: authPayload.accessToken),
-//            URLQueryItem(name: "owner_id", value: String(userID)),
-            URLQueryItem(name: "owner_id", value: "1"),
+            URLQueryItem(name: "owner_id", value: String(userID)),
+//            URLQueryItem(name: "owner_id", value: "1"),
             URLQueryItem(name: "count", value: "20"),
             URLQueryItem(name: "offset", value: resetExisting ? "0" : "\(posts.count)")
         ]
@@ -115,6 +115,10 @@ extension BrowseViewController {
             } else if let value = response.value {
                 DispatchQueue.main.async {
                     let json = JSON(value)
+                    if let jsonErrorCode = json["error"]["error_code"].int, let jsonErrorMessage = json["error"]["error_msg"].string {
+                        print("VK returned an error (\(jsonErrorCode)): \(jsonErrorMessage)")
+                        return
+                    }
                     let jsonResponse = json["response"]
                     let jsonItems = jsonResponse["items"].array ?? []
                     var postsCount = self?.posts.count ?? 0
