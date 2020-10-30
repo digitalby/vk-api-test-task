@@ -13,10 +13,14 @@ class OptionsViewController: UIViewController {
 
     @IBOutlet weak var avatarView: AvatarView?
     @IBOutlet weak var nameLabel: UILabel?
+    @IBOutlet weak var maxPostsStepper: UIStepper?
+    @IBOutlet weak var maxPostsStepperLabel: UILabel?
+
     let signOutBarButtonItem = UIBarButtonItem(title: "Sign Out", style: .plain, target: nil, action: nil)
 
     let imageDownloader = VKImageDownloader()
-    let client = VKClient(
+    let userDefaultsClient = UserDefaultsClient()
+    let vkClient = VKClient(
         requester: VKRequester(
             userCredentialsHelper: UserCredentialsHelper()
         )
@@ -46,6 +50,7 @@ class OptionsViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        updateStepperState()
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -60,10 +65,25 @@ class OptionsViewController: UIViewController {
     }
 }
 
+//MARK: - Data constraints
+extension OptionsViewController {
+    @IBAction func didChangePostsStepperValue(_ sender: Any) {
+        let stepperValue = Int(maxPostsStepper?.value ?? 0)
+        userDefaultsClient.saveMaxPostsValue(stepperValue)
+        updateStepperState()
+    }
+
+    func updateStepperState() {
+        let value = userDefaultsClient.loadMaxPostsValue()
+        maxPostsStepper?.value = Double(value)
+        maxPostsStepperLabel?.text = "\(value) Max Posts (0 = no limit)"
+    }
+}
+
 //MARK: - Retrieve data
 extension OptionsViewController {
     func refresh() {
-        client.requestVKCurrentUserInfo { result in
+        vkClient.requestVKCurrentUserInfo { result in
             switch result {
             case .failure(let error):
                 print(#function, #line, error)
@@ -111,11 +131,13 @@ extension OptionsViewController {
 //MARK: - Observer
 extension OptionsViewController {
     @objc func onCredentialsChanged(_ notification: Notification?) {
-        if let payload = notification?.object as? VKAuthPayload {
+        if notification?.object as? VKAuthPayload != nil {
             refresh()
         } else {
             setNameComponents(firstName: nil, lastName: nil)
             setAvatarImage(nil)
+            userDefaultsClient.saveMaxPostsValue(0)
+            updateStepperState()
         }
     }
 

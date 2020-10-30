@@ -15,6 +15,7 @@
 		ED1DA2E0254C34B800962F82 /* PersistentPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1DA2DF254C34B800962F82 /* PersistentPost.swift */; };
 		ED1DA2E4254C353400962F82 /* PostWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1DA2E3254C353400962F82 /* PostWrapper.swift */; };
 		ED1DA2E7254C371600962F82 /* RealmClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1DA2E6254C371600962F82 /* RealmClient.swift */; };
+		ED1DA2EA254C4B9C00962F82 /* UserDefaultsClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1DA2E9254C4B9C00962F82 /* UserDefaultsClient.swift */; };
 		ED4CCBF1254B1FA800566BAB /* VKAuthPayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED4CCBF0254B1FA800566BAB /* VKAuthPayload.swift */; };
 		ED4CCC03254B221D00566BAB /* UserCredentialsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED4CCC02254B221D00566BAB /* UserCredentialsHelper.swift */; };
 		ED4CCC0D254B28B600566BAB /* AvatarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED4CCC0C254B28B600566BAB /* AvatarView.swift */; };
@@ -53,6 +54,7 @@
 		ED1DA2DF254C34B800962F82 /* PersistentPost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistentPost.swift; sourceTree = "<group>"; };
 		ED1DA2E3254C353400962F82 /* PostWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostWrapper.swift; sourceTree = "<group>"; };
 		ED1DA2E6254C371600962F82 /* RealmClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmClient.swift; sourceTree = "<group>"; };
+		ED1DA2E9254C4B9C00962F82 /* UserDefaultsClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsClient.swift; sourceTree = "<group>"; };
 		ED4CCBEA254AFFF100566BAB /* VkTest.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = VkTest.entitlements; sourceTree = "<group>"; };
 		ED4CCBF0254B1FA800566BAB /* VKAuthPayload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VKAuthPayload.swift; sourceTree = "<group>"; };
 		ED4CCC02254B221D00566BAB /* UserCredentialsHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCredentialsHelper.swift; sourceTree = "<group>"; };
@@ -117,6 +119,7 @@
 			children = (
 				ED1DA2DF254C34B800962F82 /* PersistentPost.swift */,
 				ED1DA2E6254C371600962F82 /* RealmClient.swift */,
+				ED1DA2E9254C4B9C00962F82 /* UserDefaultsClient.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -348,6 +351,7 @@
 				EDB05093254C180D00A5AFE6 /* VKRequestInterceptor.swift in Sources */,
 				ED4CCC03254B221D00566BAB /* UserCredentialsHelper.swift in Sources */,
 				ED1DA2D5254C2B6F00962F82 /* VKPostPayload.swift in Sources */,
+				ED1DA2EA254C4B9C00962F82 /* UserDefaultsClient.swift in Sources */,
 				EDB05099254C1CC100A5AFE6 /* VKClient.swift in Sources */,
 				ED1DA2D2254C26E800962F82 /* VKImageDownloader.swift in Sources */,
 				ED9D334B254AD6C900936872 /* OptionsViewController.swift in Sources */,

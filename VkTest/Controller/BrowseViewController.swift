@@ -228,6 +228,11 @@ extension BrowseViewController {
         } else {
             tableViewHandler.items = []
             tableView?.reloadData()
+            do {
+                try realmClient.deleteAllPosts()
+            } catch {
+                print("Couldn't delete all posts: \(error)")
+            }
         }
     }
 

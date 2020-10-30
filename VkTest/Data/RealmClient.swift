@@ -8,22 +8,36 @@
 import Foundation
 import RealmSwift
 
-enum RealmClientError {
+enum RealmClientError: Error, LocalizedError {
+    var errorDescription: String? {
+        switch self {
+        case .itemLimitExceeded:
+            return "You can't save any more items!"
+//        @unknown default:
+//            return nil
+        }
+    }
     case itemLimitExceeded
 }
 
 class RealmClient {
     let realm: Realm?
+    private let userDefaultsClient: UserDefaultsClient
 
-    init(realm: Realm?) {
+    init(realm: Realm?, userDefaults: UserDefaults) {
         self.realm = realm
+        self.userDefaultsClient = UserDefaultsClient(userDefaults: userDefaults)
     }
 
     convenience init() {
-        self.init(realm: AppDelegate.defaultRealm)
+        self.init(realm: AppDelegate.defaultRealm, userDefaults: UserDefaults.standard)
     }
 
     @discardableResult func persistPost(_ post: VKPostPayload) throws -> PersistentPost? {
+        let maxPosts = userDefaultsClient.loadMaxPostsValue()
+        if maxPosts > 0, loadPosts().count >= maxPosts {
+            throw RealmClientError.itemLimitExceeded
+        }
         let persistentPost = PersistentPost()
         persistentPost.text = post.text
         persistentPost.postID = post.postID

@@ -17,7 +17,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="hNY-n7-6xA">
-                                <rect key="frame" x="111" y="331.5" width="192" height="233"/>
+                                <rect key="frame" x="111" y="305.5" width="192" height="285.5"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="JTk-1Y-Oyv" customClass="AvatarView" customModule="VkTest" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.5" width="192" height="191"/>
@@ -38,6 +38,23 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="E6R-8f-gkd">
+                                        <rect key="frame" x="0.0" y="233" width="192" height="52.5"/>
+                                        <subviews>
+                                            <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" wraps="YES" maximumValue="1000000" translatesAutoresizingMaskIntoConstraints="NO" id="geG-hL-zKH">
+                                                <rect key="frame" x="0.0" y="0.0" width="192" height="32"/>
+                                                <connections>
+                                                    <action selector="didChangePostsStepperValue:" destination="QKa-TB-Fnv" eventType="valueChanged" id="s4f-df-Cti"/>
+                                                </connections>
+                                            </stepper>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Max Posts (0 - no limit)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.10000000000000001" translatesAutoresizingMaskIntoConstraints="NO" id="7DO-lB-miv">
+                                                <rect key="frame" x="0.0" y="32" width="192" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
                                 </subviews>
                             </stackView>
                         </subviews>
@@ -51,6 +68,8 @@
                     <tabBarItem key="tabBarItem" title="Options" image="gearshape.fill" catalog="system" id="Pq6-Lt-P8u"/>
                     <connections>
                         <outlet property="avatarView" destination="JTk-1Y-Oyv" id="fWt-2y-Ovr"/>
+                        <outlet property="maxPostsStepper" destination="geG-hL-zKH" id="32V-6y-DP9"/>
+                        <outlet property="maxPostsStepperLabel" destination="7DO-lB-miv" id="BFr-a8-Uje"/>
                         <outlet property="nameLabel" destination="0lj-lb-sFL" id="Eg5-go-LL4"/>
                     </connections>
                 </viewController>
