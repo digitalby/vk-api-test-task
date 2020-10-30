@@ -12,6 +12,7 @@ struct VKRequestConstants {
     static let kWallGetFunction = "wall.get"
     static let kWallPostFunction = "wall.post"
     static let kUsersGetFunction = "users.get"
+    static let kGroupsGetFunction = "groups.get"
 
     //MARK: Query params
     static let kVersionQueryItem = "v"
@@ -19,6 +20,7 @@ struct VKRequestConstants {
     static let kOwnerIDQueryItem = "owner_id"
     static let kCountQueryItem = "count"
     static let kOffsetQueryItem = "offset"
+    static let kUserIDQueryItem = "user_id"
     static let kUserIDsQueryItem = "user_ids"
     static let kFieldsQueryItem = "fields"
     static let kMessageQueryItem = "message"
@@ -45,4 +47,8 @@ struct VKRequestConstants {
     static let kPostsPayloadPostIDKey = "post_id"
     static let kPostsPayloadPostTextKey = "text"
     static let kPostsPayloadPostDateKey = "date"
+
+    //MARK: Groups payload
+    static let kGroupsPayloadGroupNameKey = "name"
+    static let kGroupsPayloadGroupIDKey = "id"
 }

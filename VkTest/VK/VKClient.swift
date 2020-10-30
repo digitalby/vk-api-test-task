@@ -15,6 +15,7 @@ class VKClient {
     typealias VKUserRequestResult = Result<VKUserPayload, Error>
     typealias VKPostsRequestResult = Result<[VKPostPayload], Error>
     typealias VKCreatePostResult = Result<Int, Error>
+    typealias VKGroupsRequestResult = Result<[VKGroupPayload], Error>
 
     init(requester: VKRequester) {
         self.requester = requester
@@ -53,6 +54,58 @@ class VKClient {
                     then(.failure(VKGenericError.noResponse))
                 }
             }
+        }
+    }
+
+    func requestVKGroupsForCurrentUser(amount: Int, offset: Int, then: @escaping (VKGroupsRequestResult)->()) {
+        requestVKGroupsForDurov(amount: amount, offset: offset, then: then)
+        return;
+        let userID: Int
+        do {
+            guard let payload = try requester.userCredentialsHelper.loadOAuthPayload(),
+                  let theUserID = payload.userId else {
+                throw VKAuthHelperError.userIDError
+            }
+            userID = theUserID
+        } catch {
+            then(.failure(error))
+            return
+        }
+        requestVKGroups(for: userID, amount: amount, offset: offset, then: then)
+    }
+
+    func requestVKGroupsForDurov(amount: Int, offset: Int, then: @escaping (VKGroupsRequestResult)->()) {
+        requestVKGroups(for: 1, amount: amount, offset: offset, then: then)
+    }
+
+
+    func requestVKGroups(for userID: Int, amount: Int, offset: Int, then: @escaping (VKGroupsRequestResult)->()) {
+        requester.performRequestForVKFunction(
+            VKRequestConstants.kGroupsGetFunction,
+            extras: [
+            VKRequestConstants.kUserIDQueryItem : String(userID),
+            VKRequestConstants.kCountQueryItem : String(amount),
+            VKRequestConstants.kOffsetQueryItem : String(offset),
+        ]) { result in
+            switch result {
+            case .failure(let error):
+                then(.failure(error))
+            case .success(let json):
+                if let error = Self.getVKErrorPayload(from: json) {
+                    then(.failure(error))
+                    return
+                }
+                let jsonResponse = json[VKRequestConstants.kJSONResponseKey]
+                let jsonItems = jsonResponse[VKRequestConstants.kJSONItemsKey].array ?? []
+                let payloads = jsonItems.map {
+                    VKGroupPayload(
+                        name: $0[VKRequestConstants.kGroupsPayloadGroupNameKey].string ?? "",
+                        id: $0[VKRequestConstants.kGroupsPayloadGroupIDKey].int
+                    )
+                }
+                then(.success(payloads))
+            }
+
         }
     }
 

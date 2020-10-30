@@ -15,6 +15,8 @@ class OptionsViewController: UIViewController {
     @IBOutlet weak var nameLabel: UILabel?
     @IBOutlet weak var maxPostsStepper: UIStepper?
     @IBOutlet weak var maxPostsStepperLabel: UILabel?
+    @IBOutlet weak var maxGroupsStepper: UIStepper?
+    @IBOutlet weak var maxGroupsStepperLabel: UILabel?
 
     let signOutBarButtonItem = UIBarButtonItem(title: "Sign Out", style: .plain, target: nil, action: nil)
 
@@ -73,10 +75,19 @@ extension OptionsViewController {
         updateStepperState()
     }
 
+    @IBAction func didChangeGroupsStepperValue(_ sender: Any) {
+        let stepperValue = Int(maxGroupsStepper?.value ?? 0)
+        userDefaultsClient.saveMaxGroupsValue(stepperValue)
+        updateStepperState()
+    }
+
     func updateStepperState() {
-        let value = userDefaultsClient.loadMaxPostsValue()
-        maxPostsStepper?.value = Double(value)
-        maxPostsStepperLabel?.text = "\(value) Max Posts (0 = no limit)"
+        let maxPostsValue = userDefaultsClient.loadMaxPostsValue()
+        maxPostsStepper?.value = Double(maxPostsValue)
+        maxPostsStepperLabel?.text = "\(maxPostsValue) Max Posts (0 = no limit)"
+        let maxGroupsValue = userDefaultsClient.loadMaxGroupsValue()
+        maxGroupsStepper?.value = Double(maxGroupsValue)
+        maxGroupsStepperLabel?.text = "\(maxGroupsValue) Max Groups (0 = no limit)"
     }
 }
 
@@ -137,6 +148,7 @@ extension OptionsViewController {
             setNameComponents(firstName: nil, lastName: nil)
             setAvatarImage(nil)
             userDefaultsClient.saveMaxPostsValue(0)
+            userDefaultsClient.saveMaxGroupsValue(0)
             updateStepperState()
         }
     }

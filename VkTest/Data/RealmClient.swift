@@ -79,4 +79,50 @@ class RealmClient {
             realm?.delete(loadPosts())
         }
     }
+
+    @discardableResult func persistGroup(_ payload: VKGroupPayload) throws -> PersistentGroup? {
+        let maxGroups = userDefaultsClient.loadMaxGroupsValue()
+        if maxGroups > 0, loadGroups().count >= maxGroups {
+            throw RealmClientError.itemLimitExceeded
+        }
+        let persistentGroup = PersistentGroup()
+        persistentGroup.name = payload.name
+        persistentGroup.id = payload.id
+        try realm?.write {
+            realm?.add(persistentGroup)
+        }
+        return persistentGroup
+    }
+
+    func loadGroups() -> [PersistentGroup] {
+        if let objects = realm?.objects(PersistentGroup.self) {
+            return Array(objects)
+        } else {
+            return []
+        }
+    }
+
+    func loadGroupWithId(_ id: Int) -> PersistentGroup? {
+        realm?.objects(PersistentGroup.self).filter("(id=%@)", id as Any).first
+    }
+
+    func deleteGroupWithId(_ id: Int) throws {
+        guard let object = loadGroupWithId(id) else {
+            return
+        }
+
+        try deleteGroup(object)
+    }
+
+    func deleteGroup(_ group: PersistentGroup) throws {
+        try realm?.write {
+            realm?.delete(group)
+        }
+    }
+
+    func deleteAllGroups() throws {
+        try realm?.write {
+            realm?.delete(loadGroups())
+        }
+    }
 }

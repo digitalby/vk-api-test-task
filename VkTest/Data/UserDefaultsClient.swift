@@ -9,6 +9,7 @@ import Foundation
 
 class UserDefaultsClient {
     static let kMaxPostsKey = "MaxPosts"
+    static let kMaxGroupsKey = "MaxGroups"
 
     let userDefaults: UserDefaults
 
@@ -26,5 +27,13 @@ class UserDefaultsClient {
 
     func loadMaxPostsValue() -> Int {
         userDefaults.integer(forKey: Self.kMaxPostsKey)
+    }
+
+    func saveMaxGroupsValue(_ value: Int) {
+        userDefaults.set(value, forKey: Self.kMaxGroupsKey)
+    }
+
+    func loadMaxGroupsValue() -> Int {
+        userDefaults.integer(forKey: Self.kMaxGroupsKey)
     }
 }
