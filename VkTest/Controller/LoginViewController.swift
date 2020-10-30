@@ -27,9 +27,9 @@ class LoginViewController: UIViewController {
         let wallPermission = 1 << 13
         let groupsPermission = 1 << 18
 
-        let permissionsBitmask = wallPermission & groupsPermission
+        let permissionsBitmask = wallPermission + groupsPermission
 
-        return String(permissionsBitmask, radix: 2)
+        return String(permissionsBitmask)
     }()
 
     private func updateBackButtonState() {
