@@ -11,6 +11,7 @@ enum VKAuthHelperError: Error {
     case fragmentError
     case responseError(description: String)
     case oAuthCodeError
+    case userIDError
 }
 
 class VKAuthHelper {

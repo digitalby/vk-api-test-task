@@ -14,7 +14,13 @@ class OptionsViewController: UIViewController {
     @IBOutlet weak var avatarView: AvatarView?
     @IBOutlet weak var nameLabel: UILabel?
     let signOutBarButtonItem = UIBarButtonItem(title: "Sign Out", style: .plain, target: nil, action: nil)
-    let session = Session()
+
+    let imageDownloader = VKImageDownloader()
+    let client = VKClient(
+        requester: VKRequester(
+            userCredentialsHelper: UserCredentialsHelper()
+        )
+    )
 
     let userCredentialsHelper = UserCredentialsHelper()
 
@@ -45,9 +51,7 @@ class OptionsViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         tabBarController?.navigationItem.rightBarButtonItems = [signOutBarButtonItem]
-        if let payload = try? userCredentialsHelper.loadOAuthPayload() {
-            refreshWithAuth(payload)
-        }
+        refresh()
     }
 
     @objc func didTapSignOut(_ sender: Any?) {
@@ -58,52 +62,28 @@ class OptionsViewController: UIViewController {
 
 //MARK: - Retrieve data
 extension OptionsViewController {
-    func refreshWithAuth(_ payload: VKAuthPayload) {
-        guard let userID = payload.userId else {
-            return
-        }
-        var components = URLComponents(string: #"https://api.vk.com/method/users.get"#)!
-        components.queryItems = [
-            URLQueryItem(name: "v", value: "5.52"),
-            URLQueryItem(name: "access_token", value: payload.accessToken),
-            URLQueryItem(name: "user_ids", value: String(userID)),
-            URLQueryItem(name: "fields", value: "photo_200"),
-        ]
-        let url: URL
-        do {
-            url = try components.asURL()
-        } catch {
-            return
-        }
-        session.request(url).validate().responseJSON { [weak self] response in
-            if let error = response.error {
-                print("Request error \(error)")
-            } else if let value = response.value {
-                let json = JSON(value)
-                if let jsonErrorCode = json["error"]["error_code"].int, let jsonErrorMessage = json["error"]["error_msg"].string {
-                    print("VK returned an error (\(jsonErrorCode)): \(jsonErrorMessage)")
-                    return
-                }
-                let jsonResponse = json["response"][0]
-                if let firstName = jsonResponse["first_name"].string,
-                   let lastName = jsonResponse["last_name"].string {
-                    DispatchQueue.main.async {
-                        self?.setNameComponents(firstName: firstName, lastName: lastName)
+    func refresh() {
+        client.requestVKCurrentUserInfo { result in
+            switch result {
+            case .failure(let error):
+                print(#function, #line, error)
+            case .success(let payload):
+                DispatchQueue.main.async { [weak self] in
+                    self?.setNameComponents(firstName: payload.firstName, lastName: payload.lastName)
+                    if let url = payload.photo200URL {
+                        self?.downloadAvatarImage(from: url)
                     }
-                }
-                if let pictureURL = jsonResponse["photo_200"].url {
-                    self?.downloadAvatarImage(from: pictureURL)
                 }
             }
         }
     }
 
     func downloadAvatarImage(from url: URL) {
-        session.download(url).validate().responseData { response in
-            if let error = response.error {
-                print("Request error \(error)")
-            } else if let value = response.value,
-                      let image = UIImage(data: value) {
+        imageDownloader.downloadAvatarImage(from: url) { result in
+            switch result {
+            case .failure(let error):
+                print(#function, #line, error)
+            case .success(let image):
                 DispatchQueue.main.async { [weak self] in
                     self?.setAvatarImage(image)
                 }
@@ -132,7 +112,7 @@ extension OptionsViewController {
 extension OptionsViewController {
     @objc func onCredentialsChanged(_ notification: Notification?) {
         if let payload = notification?.object as? VKAuthPayload {
-            refreshWithAuth(payload)
+            refresh()
         } else {
             setNameComponents(firstName: nil, lastName: nil)
             setAvatarImage(nil)

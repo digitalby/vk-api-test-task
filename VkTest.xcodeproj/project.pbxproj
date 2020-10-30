@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		E6C57F4C61883DC0EDE5D77A /* Pods_VkTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20CE1520FD1C485883AF3B52 /* Pods_VkTest.framework */; };
+		ED1DA2CC254C1EE400962F82 /* VKUserPayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1DA2CB254C1EE400962F82 /* VKUserPayload.swift */; };
+		ED1DA2CF254C216E00962F82 /* VKError.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1DA2CE254C216E00962F82 /* VKError.swift */; };
+		ED1DA2D2254C26E800962F82 /* VKImageDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1DA2D1254C26E800962F82 /* VKImageDownloader.swift */; };
 		ED4CCBF1254B1FA800566BAB /* VKAuthPayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED4CCBF0254B1FA800566BAB /* VKAuthPayload.swift */; };
 		ED4CCC03254B221D00566BAB /* UserCredentialsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED4CCC02254B221D00566BAB /* UserCredentialsHelper.swift */; };
 		ED4CCC0D254B28B600566BAB /* AvatarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED4CCC0C254B28B600566BAB /* AvatarView.swift */; };
@@ -28,13 +31,20 @@
 		ED9D334E254AD6FB00936872 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED9D334D254AD6FB00936872 /* LoginViewController.swift */; };
 		ED9D3351254AD9B700936872 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED9D3350254AD9B700936872 /* TabBarController.swift */; };
 		ED9D3358254AEB7800936872 /* VKAuthHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED9D3357254AEB7800936872 /* VKAuthHelper.swift */; };
+		EDB0508D254C098F00A5AFE6 /* VKRequester.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDB0508C254C098E00A5AFE6 /* VKRequester.swift */; };
 		EDB05090254C101600A5AFE6 /* LazyTableViewHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDB0508F254C101600A5AFE6 /* LazyTableViewHandler.swift */; };
+		EDB05093254C180D00A5AFE6 /* VKRequestInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDB05092254C180D00A5AFE6 /* VKRequestInterceptor.swift */; };
+		EDB05096254C1A0A00A5AFE6 /* VKRequestConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDB05095254C1A0A00A5AFE6 /* VKRequestConstants.swift */; };
+		EDB05099254C1CC100A5AFE6 /* VKClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDB05098254C1CC000A5AFE6 /* VKClient.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		20CE1520FD1C485883AF3B52 /* Pods_VkTest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VkTest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3165A4CDF63AE81F465B5602 /* Pods-VkTest.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VkTest.release.xcconfig"; path = "Target Support Files/Pods-VkTest/Pods-VkTest.release.xcconfig"; sourceTree = "<group>"; };
 		D9D5EB61B05BEF848A62B4C2 /* Pods-VkTest.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VkTest.debug.xcconfig"; path = "Target Support Files/Pods-VkTest/Pods-VkTest.debug.xcconfig"; sourceTree = "<group>"; };
+		ED1DA2CB254C1EE400962F82 /* VKUserPayload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VKUserPayload.swift; sourceTree = "<group>"; };
+		ED1DA2CE254C216E00962F82 /* VKError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VKError.swift; sourceTree = "<group>"; };
+		ED1DA2D1254C26E800962F82 /* VKImageDownloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VKImageDownloader.swift; sourceTree = "<group>"; };
 		ED4CCBEA254AFFF100566BAB /* VkTest.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = VkTest.entitlements; sourceTree = "<group>"; };
 		ED4CCBF0254B1FA800566BAB /* VKAuthPayload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VKAuthPayload.swift; sourceTree = "<group>"; };
 		ED4CCC02254B221D00566BAB /* UserCredentialsHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCredentialsHelper.swift; sourceTree = "<group>"; };
@@ -58,7 +68,11 @@
 		ED9D334D254AD6FB00936872 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		ED9D3350254AD9B700936872 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		ED9D3357254AEB7800936872 /* VKAuthHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VKAuthHelper.swift; sourceTree = "<group>"; };
+		EDB0508C254C098E00A5AFE6 /* VKRequester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VKRequester.swift; sourceTree = "<group>"; };
 		EDB0508F254C101600A5AFE6 /* LazyTableViewHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LazyTableViewHandler.swift; sourceTree = "<group>"; };
+		EDB05092254C180D00A5AFE6 /* VKRequestInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VKRequestInterceptor.swift; sourceTree = "<group>"; };
+		EDB05095254C1A0A00A5AFE6 /* VKRequestConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VKRequestConstants.swift; sourceTree = "<group>"; };
+		EDB05098254C1CC000A5AFE6 /* VKClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VKClient.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,6 +134,8 @@
 			isa = PBXGroup;
 			children = (
 				ED4CCBF0254B1FA800566BAB /* VKAuthPayload.swift */,
+				ED1DA2CB254C1EE400962F82 /* VKUserPayload.swift */,
+				ED1DA2CE254C216E00962F82 /* VKError.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -156,11 +172,11 @@
 		ED9D32FA254ACCA200936872 /* VkTest */ = {
 			isa = PBXGroup;
 			children = (
+				EDB0509B254C1D6800A5AFE6 /* VK */,
 				ED4CCBF6254B213100566BAB /* Controller */,
 				ED4CCC00254B216200566BAB /* Model */,
 				ED4CCBFC254B214700566BAB /* Supporting Files */,
 				ED4CCC01254B216D00566BAB /* View */,
-				ED9D3357254AEB7800936872 /* VKAuthHelper.swift */,
 				ED4CCC02254B221D00566BAB /* UserCredentialsHelper.swift */,
 				ED4CCC0F254B3E5800566BAB /* NSNotificationName+AppNotifications.swift */,
 				ED4CCC2C254B697100566BAB /* CreatePostViewDelegate.swift */,
@@ -168,6 +184,19 @@
 				EDB0508F254C101600A5AFE6 /* LazyTableViewHandler.swift */,
 			);
 			path = VkTest;
+			sourceTree = "<group>";
+		};
+		EDB0509B254C1D6800A5AFE6 /* VK */ = {
+			isa = PBXGroup;
+			children = (
+				ED9D3357254AEB7800936872 /* VKAuthHelper.swift */,
+				EDB0508C254C098E00A5AFE6 /* VKRequester.swift */,
+				EDB05092254C180D00A5AFE6 /* VKRequestInterceptor.swift */,
+				EDB05095254C1A0A00A5AFE6 /* VKRequestConstants.swift */,
+				EDB05098254C1CC000A5AFE6 /* VKClient.swift */,
+				ED1DA2D1254C26E800962F82 /* VKImageDownloader.swift */,
+			);
+			path = VK;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -285,6 +314,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ED1DA2CF254C216E00962F82 /* VKError.swift in Sources */,
 				ED9D3358254AEB7800936872 /* VKAuthHelper.swift in Sources */,
 				ED4CCC0D254B28B600566BAB /* AvatarView.swift in Sources */,
 				EDB05090254C101600A5AFE6 /* LazyTableViewHandler.swift in Sources */,
@@ -293,12 +323,18 @@
 				ED4CCC10254B3E5800566BAB /* NSNotificationName+AppNotifications.swift in Sources */,
 				ED98B517254AF4E200BB959E /* InnerNavigationController.swift in Sources */,
 				ED4CCC30254B76A700566BAB /* KeyboardConstraintAdjuster.swift in Sources */,
+				ED1DA2CC254C1EE400962F82 /* VKUserPayload.swift in Sources */,
+				EDB05093254C180D00A5AFE6 /* VKRequestInterceptor.swift in Sources */,
 				ED4CCC03254B221D00566BAB /* UserCredentialsHelper.swift in Sources */,
+				EDB05099254C1CC100A5AFE6 /* VKClient.swift in Sources */,
+				ED1DA2D2254C26E800962F82 /* VKImageDownloader.swift in Sources */,
 				ED9D334B254AD6C900936872 /* OptionsViewController.swift in Sources */,
 				ED98B51A254AF5A600BB959E /* NavigationController.swift in Sources */,
 				ED4CCC27254B663F00566BAB /* CreatePostView.swift in Sources */,
 				ED9D32FC254ACCA200936872 /* AppDelegate.swift in Sources */,
+				EDB05096254C1A0A00A5AFE6 /* VKRequestConstants.swift in Sources */,
 				ED9D3351254AD9B700936872 /* TabBarController.swift in Sources */,
+				EDB0508D254C098F00A5AFE6 /* VKRequester.swift in Sources */,
 				ED9D334E254AD6FB00936872 /* LoginViewController.swift in Sources */,
 				ED9D32FE254ACCA200936872 /* SceneDelegate.swift in Sources */,
 				ED4CCBF1254B1FA800566BAB /* VKAuthPayload.swift in Sources */,
